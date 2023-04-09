@@ -14,29 +14,26 @@ import { AuthHooks } from '@/auth/authHooks'
 
 export const LoginPage = () => {
   const [showPwd, setShowPwd] = useState<boolean>(false)
-  const [loginPwd, setLoginPwd] = useState<string>('lsnsjc')
-  const [loginEmail, setLoginEmail] = useState<string>(
-    'newcapital.in@gmail.com',
-  )
+
   const {
     isUserLoggetIn,
     loginWithEmailAndPassword,
     loginWithGitHub,
     logout,
     loginWithGoogle,
+    setLoginPwd,
+    loginPwd,
+    setLoginEmail,
+    loginEmail,
   } = AuthHooks()
 
-  const handleloginWithEmailAndPassword = () => {
-    loginWithEmailAndPassword({ loginEmail, loginPwd })
-  }
+  const handleloginWithEmailAndPassword = () => loginWithEmailAndPassword()
 
-  const handleGitHubSubmit = () => {
-    loginWithGitHub()
-  }
+  const handleGitHubSubmit = () => loginWithGitHub()
 
-  const handleLoginWithGoogle = () => {
-    loginWithGoogle()
-  }
+  const handleLoginWithGoogle = () => loginWithGoogle()
+
+  const handleLogout = () => logout()
 
   return (
     <>
@@ -86,7 +83,7 @@ export const LoginPage = () => {
             <Button onClick={handleGitHubSubmit}>Login with GitHub</Button>
             <Button onClick={handleLoginWithGoogle}>Login with Google</Button>
           </HStack>
-          {isUserLoggetIn && <Button onClick={() => logout()}>LogOUT</Button>}
+          {isUserLoggetIn && <Button onClick={handleLogout}>LogOUT</Button>}
           {/* <Link to='/newuserform'> Créer un nouveau utilizateur</Link> */}
         </Stack>
       </VStack>

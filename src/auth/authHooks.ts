@@ -1,4 +1,4 @@
-import { KeyboardEventHandler, useEffect, useState } from 'react'
+import { KeyboardEventHandler, useCallback, useEffect, useState } from 'react'
 import { auth } from './firebase'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -16,18 +16,24 @@ export const AuthHooks = () => {
   const [registerPw, setRegisterPw] = useState('')
   const [user, setUser] = useState<any>({})
   const [isUserLoggetIn, setIsUserLoggetIn] = useState(false)
+  const [loginPwd, setLoginPwd] = useState<string>('teste123')
+  const [loginEmail, setLoginEmail] = useState<string>(
+    'newcapital.in@gmail.com',
+  )
   const navigate = useNavigate()
 
-  // onAuthStateChanged(auth, (currentUser) => {
-  //   if (currentUser) {
-  //     console.log(currentUser)
-  //     setUser(currentUser)
-  //     setIsUserLoggetIn(true)
-  //   } else {
-  //     setIsUserLoggetIn(false)
-  //     console.log('nao ta logado')
-  //   }
-  // })
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        console.log(currentUser)
+        setUser(currentUser)
+        setIsUserLoggetIn(true)
+      } else {
+        setIsUserLoggetIn(false)
+        console.log('nao ta logado')
+      }
+    })
+  }, [])
 
   const register = async () => {
     try {
@@ -44,47 +50,43 @@ export const AuthHooks = () => {
     }
   }
 
-  const loginWithEmailAndPassword = async ({ loginEmail, loginPw }: any) => {
+  const loginWithEmailAndPassword = useCallback(async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, loginEmail, loginPw)
+      const user = await signInWithEmailAndPassword(auth, loginEmail, loginPwd)
+      setUser(user)
       // navigate('/home')
-      // console.log('logado: ', user)
+      console.log('login')
     } catch (error: any) {
       console.log(error.message)
     }
-  }
+  }, [loginPwd, loginEmail])
 
-  const loginWithGitHub = async () => {
+  const loginWithGitHub = useCallback(async () => {
     try {
-      console.log('02')
       const provider = new GithubAuthProvider()
-      console.log('03')
       await signInWithRedirect(auth, provider)
-      console.log('logado com gitHub')
     } catch (error: any) {
+      console.log('erro')
       console.log(error.message)
     }
-  }
+  }, [])
 
-  const loginWithGoogle = async () => {
+  const loginWithGoogle = useCallback(async () => {
     try {
       const provider = new GoogleAuthProvider()
-      signInWithRedirect(auth, provider).then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result)
-        console.log('credential: ', credential)
-        const token = credential?.accessToken
-        console.log('token: ', token)
-      })
+      signInWithRedirect(auth, provider)
     } catch (error: any) {
       console.log(error.message)
     }
-  }
+  }, [])
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     await signOut(auth)
-    // navigate('/')
+
+    setIsUserLoggetIn(false)
     console.log('deslogado')
-  }
+    // navigate('/')
+  }, [])
 
   // const pressEnter = (e: KeyboardEventHandler<HTMLInputElement>) => {
   const pressEnter = async (e: any) => {
@@ -107,5 +109,9 @@ export const AuthHooks = () => {
     loginWithGitHub,
     isUserLoggetIn,
     loginWithGoogle,
+    setLoginPwd,
+    loginPwd,
+    setLoginEmail,
+    loginEmail,
   }
 }
