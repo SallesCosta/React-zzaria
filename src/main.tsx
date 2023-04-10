@@ -3,9 +3,9 @@ import { createRoot } from 'react-dom/client'
 import { App } from '@/app'
 
 import { ErrorBoundary } from 'react-error-boundary'
-import { BrowserRouter } from 'react-router-dom'
 import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from './ui/theme'
+import { Providers } from './helpers/providers'
 
 const rootElement = document.querySelector('[data-js="root"]')
 
@@ -35,13 +35,14 @@ const logError = (error: Error, info: { componentStack: string }) => {
   console.log('info', info.componentStack)
 }
 
+// TODO: use ChakraProvider from providers abstraction.
 root.render(
   <StrictMode>
-    <BrowserRouter>
+    <Providers>
       <ChakraProvider theme={theme}>
         <App />
       </ChakraProvider>
-    </BrowserRouter>
+    </Providers>
   </StrictMode>,
 )
 

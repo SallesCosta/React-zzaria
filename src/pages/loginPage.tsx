@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {
   Button,
   FormLabel,
@@ -10,9 +9,10 @@ import {
   Stack,
   Heading,
 } from '@chakra-ui/react'
-import { AuthHooks } from '@/auth/authHooks'
+import { useState } from 'react'
+import { useAuthContext } from '@/helpers/authContext'
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const [showPwd, setShowPwd] = useState<boolean>(false)
 
   const {
@@ -25,7 +25,7 @@ export const LoginPage = () => {
     loginPwd,
     setLoginEmail,
     loginEmail,
-  } = AuthHooks()
+  } = useAuthContext()
 
   const handleloginWithEmailAndPassword = () => loginWithEmailAndPassword()
 
@@ -77,7 +77,7 @@ export const LoginPage = () => {
             w='100%'
             variant='primary'
           >
-            Login
+            Send
           </Button>
           <HStack justifyContent='space-between'>
             <Button onClick={handleGitHubSubmit}>Login with GitHub</Button>
@@ -90,3 +90,5 @@ export const LoginPage = () => {
     </>
   )
 }
+
+export default LoginPage

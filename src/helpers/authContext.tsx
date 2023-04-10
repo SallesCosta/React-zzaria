@@ -1,6 +1,15 @@
-import { KeyboardEventHandler, useCallback, useEffect, useState } from 'react'
-import { auth } from './firebase'
-import { useNavigate } from 'react-router-dom'
+import {
+  createContext,
+  Dispatch,
+  KeyboardEventHandler,
+  ReactNode,
+  SetStateAction,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
+
 import {
   GithubAuthProvider,
   signInWithEmailAndPassword,
@@ -11,7 +20,33 @@ import {
   GoogleAuthProvider,
 } from 'firebase/auth'
 
-export const AuthHooks = () => {
+import { auth } from '@/services/firebase'
+import { useNavigate } from 'react-router-dom'
+
+type ContextProps = {
+  children: ReactNode | ReactNode[];
+};
+
+type ContextValue = {
+  pressEnter: any;
+  setRegisterEmail: Dispatch<SetStateAction<string>>;
+  setRegisterPw: Dispatch<SetStateAction<string>>;
+  setLoginEmail: Dispatch<SetStateAction<string>>;
+  setLoginPwd: Dispatch<SetStateAction<string>>;
+  user: unknown;
+  loginWithEmailAndPassword: () => void;
+  register: () => void;
+  logout: () => void;
+  loginWithGitHub: () => void;
+  isUserLoggetIn: boolean;
+  loginWithGoogle: () => void;
+  loginPwd: string;
+  loginEmail: string;
+};
+
+const AuthContext = createContext<ContextValue | null>(null)
+
+export function AuthProvider ({ children }: ContextProps): JSX.Element {
   const [registerEmail, setRegisterEmail] = useState('')
   const [registerPw, setRegisterPw] = useState('')
   const [user, setUser] = useState<any>({})
@@ -98,20 +133,36 @@ export const AuthHooks = () => {
     }
   }
 
-  return {
-    pressEnter,
-    setRegisterEmail,
-    setRegisterPw,
-    user,
-    loginWithEmailAndPassword,
-    register,
-    logout,
-    loginWithGitHub,
-    isUserLoggetIn,
-    loginWithGoogle,
-    setLoginPwd,
-    loginPwd,
-    setLoginEmail,
-    loginEmail,
+  return (
+    <AuthContext.Provider
+      value={{
+        setRegisterEmail,
+        setRegisterPw,
+        user,
+        loginWithEmailAndPassword,
+        register,
+        logout,
+        loginWithGitHub,
+        isUserLoggetIn,
+        loginWithGoogle,
+        setLoginPwd,
+        loginPwd,
+        setLoginEmail,
+        loginEmail,
+        pressEnter,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  )
+}
+
+export function useAuthContext () {
+  const context = useContext(AuthContext)
+  if (!context) {
+    throw new Error(
+      'You must wrap your app with <ContextProvider /> component',
+    )
   }
+  return context
 }
