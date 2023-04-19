@@ -8,7 +8,7 @@ import {
   useContext,
   useEffect,
   useState,
-} from 'react'
+} from "react";
 
 import {
   GithubAuthProvider,
@@ -18,10 +18,10 @@ import {
   signOut,
   signInWithRedirect,
   GoogleAuthProvider,
-} from 'firebase/auth'
+} from "firebase/auth";
 
-import { auth } from '@/services/firebase'
-import { useNavigate } from 'react-router-dom'
+import { auth } from "@/services/firebase";
+import { useNavigate } from "react-router-dom";
 
 type ContextProps = {
   children: ReactNode | ReactNode[];
@@ -33,106 +33,102 @@ type ContextValue = {
   setRegisterPw: Dispatch<SetStateAction<string>>;
   setLoginEmail: Dispatch<SetStateAction<string>>;
   setLoginPwd: Dispatch<SetStateAction<string>>;
-  user: unknown;
+  setIsUserLoggedIn: Dispatch<SetStateAction<boolean>>;
+  user: any;
   loginWithEmailAndPassword: () => void;
-  register: () => void;
+  // register: () => void;
   logout: () => void;
   loginWithGitHub: () => void;
-  isUserLoggetIn: boolean;
   loginWithGoogle: () => void;
   loginPwd: string;
   loginEmail: string;
+  isUserLoggedIn: boolean;
 };
 
-const AuthContext = createContext<ContextValue | null>(null)
+const AuthContext = createContext<ContextValue | null>(null);
 
-export function AuthProvider ({ children }: ContextProps): JSX.Element {
-  const [registerEmail, setRegisterEmail] = useState('')
-  const [registerPw, setRegisterPw] = useState('')
-  const [user, setUser] = useState<any>({})
-  const [isUserLoggetIn, setIsUserLoggetIn] = useState(false)
-  const [loginPwd, setLoginPwd] = useState<string>('teste123')
+export function AuthProvider({ children }: ContextProps): JSX.Element {
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPw, setRegisterPw] = useState("");
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [loginPwd, setLoginPwd] = useState<string>("teste123");
   const [loginEmail, setLoginEmail] = useState<string>(
-    'newcapital.in@gmail.com',
-  )
-  const navigate = useNavigate()
+    "newcapital.in@gmail.com"
+  );
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        console.log(currentUser)
-        setUser(currentUser)
-        setIsUserLoggetIn(true)
-      } else {
-        setIsUserLoggetIn(false)
-        console.log('nao ta logado')
-      }
-    })
-  }, [])
+      console.log("passou pelo StateChanged");
+      setUser(currentUser);
+      setIsUserLoggedIn(true);
+    });
+  }, []);
 
-  const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPw,
-      )
-      console.log(user)
-      window.location.pathname = '/loginform'
-      // navigate('/loginform')
-    } catch (error: any) {
-      console.log(error.message)
-    }
-  }
+  // const register = async () => {
+  //   try {
+  //     const user = await createUserWithEmailAndPassword(
+  //       auth,
+  //       registerEmail,
+  //       registerPw,
+  //     )
+  //     console.log(user)
+  //     window.location.pathname = '/loginform'
+  //     // navigate('/loginform')
+  //   } catch (error: any) {
+  //     console.log(error.message)
+  //   }
+  // }
 
   const loginWithEmailAndPassword = useCallback(async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, loginEmail, loginPwd)
-      setUser(user)
-      // navigate('/home')
-      console.log('login')
+      const user = await signInWithEmailAndPassword(auth, loginEmail, loginPwd);
+      setUser(user);
+
+      setIsUserLoggedIn(true);
+      navigate("/");
+      console.log("passou pelo login");
     } catch (error: any) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }, [loginPwd, loginEmail])
+  }, [loginPwd, loginEmail, navigate]);
 
   const loginWithGitHub = useCallback(async () => {
     try {
-      const provider = new GithubAuthProvider()
-      await signInWithRedirect(auth, provider)
+      const provider = new GithubAuthProvider();
+      await signInWithRedirect(auth, provider);
     } catch (error: any) {
-      console.log('erro')
-      console.log(error.message)
+      console.log("loginWithGitHub: ", error.message);
     }
-  }, [])
+  }, []);
 
   const loginWithGoogle = useCallback(async () => {
     try {
-      const provider = new GoogleAuthProvider()
-      signInWithRedirect(auth, provider)
+      const provider = new GoogleAuthProvider();
+      signInWithRedirect(auth, provider);
     } catch (error: any) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }, [])
+  }, []);
 
   const logout = useCallback(async () => {
-    await signOut(auth)
-
-    setIsUserLoggetIn(false)
-    console.log('deslogado')
-    // navigate('/')
-  }, [])
+    await signOut(auth);
+    setIsUserLoggedIn(false);
+    console.log("passou pelo logout");
+    navigate("/login");
+  }, []);
 
   // const pressEnter = (e: KeyboardEventHandler<HTMLInputElement>) => {
   const pressEnter = async (e: any) => {
-    const keyCode = e.which || e.keyCode
-    const ENTER = 13
+    const keyCode = e.which || e.keyCode;
+    const ENTER = 13;
 
     if (keyCode === ENTER) {
       // await login({loginEmail, loginPw})
     }
-  }
-
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -140,10 +136,11 @@ export function AuthProvider ({ children }: ContextProps): JSX.Element {
         setRegisterPw,
         user,
         loginWithEmailAndPassword,
-        register,
+        // register,
         logout,
         loginWithGitHub,
-        isUserLoggetIn,
+        isUserLoggedIn,
+        setIsUserLoggedIn,
         loginWithGoogle,
         setLoginPwd,
         loginPwd,
@@ -154,15 +151,15 @@ export function AuthProvider ({ children }: ContextProps): JSX.Element {
     >
       {children}
     </AuthContext.Provider>
-  )
+  );
 }
 
-export function useAuthContext () {
-  const context = useContext(AuthContext)
+export function useAuthContext() {
+  const context = useContext(AuthContext);
   if (!context) {
     throw new Error(
-      'You must wrap your app with <ContextProvider /> component',
-    )
+      "You must wrap your app with <ContextProvider /> component"
+    );
   }
-  return context
+  return context;
 }

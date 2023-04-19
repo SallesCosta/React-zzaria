@@ -204,8 +204,18 @@ const components = {
   },
 }
 
+const breakpoints = {
+  sm: '319px', // 480px
+  sm480: '479px', // 480px
+  md: '48em', // 768px
+  lg: '60em', // 992px
+  xl: '80em', // 1280px
+  '2xl': '96em', // 1536px
+}
+
 export const theme = extendTheme({
   styles,
   semanticTokens,
   components,
+  breakpoints,
 })

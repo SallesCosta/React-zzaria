@@ -1,19 +1,25 @@
+import { lazy, Suspense } from 'react'
+import { VStack, Progress } from '@chakra-ui/react'
 import { Route, Routes } from 'react-router-dom'
 
+import { Header } from './components/'
+
+const ChoosePizza = lazy(() => import('@/pages/choosePizza'))
+const PrivatePage = lazy(() => import('@/pages/privatePage'))
+
 const MainPage = () => {
-  const routes = [
-    { path: '/rota1', element: 'Rota 1' },
-    { path: '/rota2', element: 'Rota 2' },
-  ]
   return (
-    <>
-      <Routes>
-        {routes.map((route) => (
-          <Route key={route.path} path={route.path} />
-        ))}
-      </Routes>
-      <div>mainPage</div>
-    </>
+    <VStack>
+      <Header />
+      <Suspense fallback={<Progress size='xs' isIndeterminate />}>
+        <Routes>
+          <Route element={<ChoosePizza />} path='/' />
+          <Route element={<PrivatePage />} path='/main/private' />
+        </Routes>
+      </Suspense>
+
+      <Header />
+    </VStack>
   )
 }
 
