@@ -8,7 +8,7 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
+} from 'react'
 
 import {
   GithubAuthProvider,
@@ -18,10 +18,10 @@ import {
   signOut,
   signInWithRedirect,
   GoogleAuthProvider,
-} from "firebase/auth";
+} from 'firebase/auth'
 
-import { auth } from "@/services/firebase";
-import { useNavigate } from "react-router-dom";
+import { auth } from '@/services/firebase'
+import { useNavigate } from 'react-router-dom'
 
 type ContextProps = {
   children: ReactNode | ReactNode[];
@@ -45,27 +45,27 @@ type ContextValue = {
   isUserLoggedIn: boolean;
 };
 
-const AuthContext = createContext<ContextValue | null>(null);
+const AuthContext = createContext<ContextValue | null>(null)
 
-export function AuthProvider({ children }: ContextProps): JSX.Element {
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPw, setRegisterPw] = useState("");
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [user, setUser] = useState<any>(null);
-  const [loginPwd, setLoginPwd] = useState<string>("teste123");
+export function AuthProvider ({ children }: ContextProps): JSX.Element {
+  const [registerEmail, setRegisterEmail] = useState('')
+  const [registerPw, setRegisterPw] = useState('')
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+  const [user, setUser] = useState<any>(null)
+  const [loginPwd, setLoginPwd] = useState<string>('teste123')
   const [loginEmail, setLoginEmail] = useState<string>(
-    "newcapital.in@gmail.com"
-  );
+    'newcapital.in@gmail.com',
+  )
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      console.log("passou pelo StateChanged");
-      setUser(currentUser);
-      setIsUserLoggedIn(true);
-    });
-  }, []);
+      console.log('passou pelo StateChanged')
+      setUser(currentUser)
+      setIsUserLoggedIn(true)
+    })
+  }, [])
 
   // const register = async () => {
   //   try {
@@ -84,51 +84,51 @@ export function AuthProvider({ children }: ContextProps): JSX.Element {
 
   const loginWithEmailAndPassword = useCallback(async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, loginEmail, loginPwd);
-      setUser(user);
+      const user = await signInWithEmailAndPassword(auth, loginEmail, loginPwd)
+      setUser(user)
 
-      setIsUserLoggedIn(true);
-      navigate("/");
-      console.log("passou pelo login");
+      setIsUserLoggedIn(true)
+      navigate('/')
+      console.log('passou pelo login')
     } catch (error: any) {
-      console.log(error.message);
+      console.log(error.message)
     }
-  }, [loginPwd, loginEmail, navigate]);
+  }, [loginPwd, loginEmail, navigate])
 
   const loginWithGitHub = useCallback(async () => {
     try {
-      const provider = new GithubAuthProvider();
-      await signInWithRedirect(auth, provider);
+      const provider = new GithubAuthProvider()
+      await signInWithRedirect(auth, provider)
     } catch (error: any) {
-      console.log("loginWithGitHub: ", error.message);
+      console.log('loginWithGitHub: ', error.message)
     }
-  }, []);
+  }, [])
 
   const loginWithGoogle = useCallback(async () => {
     try {
-      const provider = new GoogleAuthProvider();
-      signInWithRedirect(auth, provider);
+      const provider = new GoogleAuthProvider()
+      signInWithRedirect(auth, provider)
     } catch (error: any) {
-      console.log(error.message);
+      console.log(error.message)
     }
-  }, []);
+  }, [])
 
   const logout = useCallback(async () => {
-    await signOut(auth);
-    setIsUserLoggedIn(false);
-    console.log("passou pelo logout");
-    navigate("/login");
-  }, []);
+    await signOut(auth)
+    setIsUserLoggedIn(false)
+    console.log('passou pelo logout')
+    navigate('/login')
+  }, [])
 
   // const pressEnter = (e: KeyboardEventHandler<HTMLInputElement>) => {
   const pressEnter = async (e: any) => {
-    const keyCode = e.which || e.keyCode;
-    const ENTER = 13;
+    const keyCode = e.which || e.keyCode
+    const ENTER = 13
 
     if (keyCode === ENTER) {
       // await login({loginEmail, loginPw})
     }
-  };
+  }
   return (
     <AuthContext.Provider
       value={{
@@ -151,15 +151,15 @@ export function AuthProvider({ children }: ContextProps): JSX.Element {
     >
       {children}
     </AuthContext.Provider>
-  );
+  )
 }
 
-export function useAuthContext() {
-  const context = useContext(AuthContext);
+export function useAuthContext () {
+  const context = useContext(AuthContext)
   if (!context) {
     throw new Error(
-      "You must wrap your app with <ContextProvider /> component"
-    );
+      'You must wrap your app with <ContextProvider /> component',
+    )
   }
-  return context;
+  return context
 }
