@@ -1,13 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
-import {
-  Text,
-  Heading,
-  Stack,
-  Box,
-  GridItem,
-  SimpleGrid,
-} from '@chakra-ui/react'
+import { Text, Stack, Box, GridItem, SimpleGrid } from '@chakra-ui/react'
 import { H1 } from '@/ui/text'
+import { singleOrPlural } from '@/helpers/singleOrPlural'
 
 const PizzaSizes = [
   { name: 'Pequena', size: 28, slices: 2, flavours: 1 },
@@ -17,10 +11,11 @@ const PizzaSizes = [
 
 const ChoosePizzaFlavours = () => {
   const location = useLocation()
-  const flavoursQuantity =
-    location.state.flavours === 1
-      ? 'Escolha o sabor'
-      : `Escolha até ${location.state.flavours} sabores`
+  const flavoursQuantity = singleOrPlural(
+    location.state.flavours,
+    'Escolha o sabor',
+    `Escolha até ${location.state.flavours} sabores`,
+  )
 
   return (
     <>
@@ -45,7 +40,10 @@ const ChoosePizzaFlavours = () => {
                   <Text>{pizza.name}</Text>
                   <Text>{pizza.size}cm</Text>
                   <Text>{pizza.slices} fatias</Text>
-                  <Text>{pizza.flavours} sabores</Text>
+                  <Text>
+                    {pizza.flavours}{' '}
+                    {singleOrPlural(pizza.flavours, 'sabor', 'sabores')}
+                  </Text>
                 </Box>
               </Link>
             </GridItem>

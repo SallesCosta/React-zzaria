@@ -1,12 +1,5 @@
-import { Link, useNavigate } from 'react-router-dom'
-import {
-  Text,
-  Heading,
-  Stack,
-  Box,
-  GridItem,
-  SimpleGrid,
-} from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
+import { Text, Stack, Box, GridItem, SimpleGrid } from '@chakra-ui/react'
 import { useAuthContext } from '@/helpers/authContext'
 import { nameInEmail } from '@/helpers/nameAndEmail'
 import { H1, H2 } from '@/ui/text'
@@ -26,7 +19,6 @@ const ChoosePizzaSize = () => {
     <>
       <Stack w='100%' maxW='960px' textAlign='center' as='main'>
         <H1>O que vai ser hoje {name}?</H1>
-        <Heading as='h1' size='2xl' />
         <H2>Escolha o tamanho da pizza:</H2>
         <SimpleGrid
           minChildWidth='288px' // 320px - 2* 1em (32px)
