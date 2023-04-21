@@ -3,7 +3,6 @@ import {
   Avatar,
   Box,
   HStack,
-  IconButton,
   Menu,
   MenuButton,
   MenuItem,
@@ -17,8 +16,8 @@ import { ExternalLinkIcon, AddIcon } from '@chakra-ui/icons'
 import { useAuthContext } from '@/helpers/authContext'
 import { firstLetter, nameInEmail } from '@/helpers/nameAndEmail'
 
-export const Header = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
+const Header = () => {
+  const { toggleColorMode } = useColorMode()
   const { logout, user } = useAuthContext()
 
   const name = nameInEmail(user.user.email)
@@ -28,7 +27,7 @@ export const Header = () => {
 
   return (
     <Stack
-      // bg={['red', 'green', 'gray', 'violet']}
+      bg={['red', 'green', 'gray', 'violet']}
       as='header'
       justifyContent='space-between'
       alignItems='center'
@@ -89,3 +88,5 @@ export const Header = () => {
     </Stack>
   )
 }
+
+export default Header
