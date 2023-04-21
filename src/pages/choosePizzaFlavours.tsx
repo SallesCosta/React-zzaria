@@ -1,13 +1,16 @@
-import { Link, useLocation } from 'react-router-dom'
-import { Text, Stack, Box, GridItem, SimpleGrid } from '@chakra-ui/react'
+import { useLocation } from 'react-router-dom'
+import {
+  Text,
+  Stack,
+  GridItem,
+  SimpleGrid,
+  Image,
+  VStack,
+  Checkbox,
+} from '@chakra-ui/react'
 import { H1 } from '@/ui/text'
 import { singleOrPlural } from '@/helpers/singleOrPlural'
-
-const PizzaSizes = [
-  { name: 'Pequena', size: 28, slices: 2, flavours: 1 },
-  { name: 'Média', size: 30, slices: 6, flavours: 2 },
-  { name: 'Grande', size: 32, slices: 6, flavours: 3 },
-]
+import { PizzaFlavours } from '@/helpers/fake'
 
 const ChoosePizzaFlavours = () => {
   const location = useLocation()
@@ -28,24 +31,29 @@ const ChoosePizzaFlavours = () => {
           w='100%'
           p='2em 1em'
         >
-          {PizzaSizes.map((pizza) => (
-            <GridItem key={pizza.name}>
-              <Link state={pizza} to='/'>
-                <Box
+          {PizzaFlavours.map((pizza) => (
+            <GridItem key={pizza.id}>
+              <label htmlFor={pizza.name}>
+                <VStack
+                  cursor='pointer'
                   borderWidth='1px'
                   borderRadius='lg'
                   overflow='hidden'
                   w='100%'
                 >
-                  <Text>{pizza.name}</Text>
-                  <Text>{pizza.size}cm</Text>
-                  <Text>{pizza.slices} fatias</Text>
-                  <Text>
-                    {pizza.flavours}{' '}
-                    {singleOrPlural(pizza.flavours, 'sabor', 'sabores')}
-                  </Text>
-                </Box>
-              </Link>
+                  <Checkbox id={pizza.name} colorScheme='green' size='lg'>
+                    <Text>{pizza.name}</Text>
+                  </Checkbox>
+
+                  <Image
+                    borderRadius='full'
+                    boxSize='200px'
+                    src={pizza.image}
+                    alt={`foto pizza de ${pizza.name}`}
+                  />
+                  <Text>R${pizza.value[0]},00</Text>
+                </VStack>
+              </label>
             </GridItem>
           ))}
         </SimpleGrid>

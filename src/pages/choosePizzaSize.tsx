@@ -3,12 +3,7 @@ import { Text, Stack, Box, GridItem, SimpleGrid } from '@chakra-ui/react'
 import { useAuthContext } from '@/helpers/authContext'
 import { nameInEmail } from '@/helpers/nameAndEmail'
 import { H1, H2 } from '@/ui/text'
-
-const PizzaSizes = [
-  { name: 'Pequena', size: 28, slices: 2, flavours: 1 },
-  { name: 'Média', size: 30, slices: 6, flavours: 2 },
-  { name: 'Grande', size: 32, slices: 6, flavours: 3 },
-]
+import { PizzaSizes } from '@/helpers/fake'
 
 const ChoosePizzaSize = () => {
   const { user } = useAuthContext()
