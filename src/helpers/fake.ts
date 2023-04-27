@@ -4,9 +4,10 @@ import pizzaPrestigio from '@/assets/pizza-prestigio.jpg'
 
 export const PizzaFlavours = [
   {
-    id: 0,
+    id: '0',
     image: pizzaCalabresa,
     name: 'Calabresa',
+    select: false,
     value: {
       0: 20,
       1: 30,
@@ -14,9 +15,10 @@ export const PizzaFlavours = [
     },
   },
   {
-    id: 1,
+    id: '1',
     image: pizzaFrango,
     name: 'Frango com catupiry',
+    select: false,
     value: {
       0: 25,
       1: 35,
@@ -24,9 +26,10 @@ export const PizzaFlavours = [
     },
   },
   {
-    id: 2,
+    id: '2',
     image: pizzaPrestigio,
     name: 'Prestígio',
+    select: false,
     value: {
       0: 23,
       1: 33,
@@ -36,7 +39,7 @@ export const PizzaFlavours = [
 ]
 
 export const PizzaSizes = [
-  { name: 'Pequena', size: 28, slices: 2, flavours: 1 },
-  { name: 'Média', size: 30, slices: 6, flavours: 2 },
-  { name: 'Grande', size: 32, slices: 6, flavours: 3 },
+  { name: 'Pequena', size: 28, slices: 2, flavours: 1, id: '0' },
+  { name: 'Média', size: 30, slices: 6, flavours: 2, id: '1' },
+  { name: 'Grande', size: 32, slices: 6, flavours: 3, id: '2' },
 ]

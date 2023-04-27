@@ -3,6 +3,7 @@ import {
   createContext,
   ReactNode,
   useContext,
+  useCallback,
   Dispatch,
   SetStateAction,
 } from 'react'
@@ -11,21 +12,81 @@ type ContextProps = {
   children: ReactNode | ReactNode[];
 };
 
-type ContextValue = {
-  data: string;
-  setData: Dispatch<SetStateAction<string>>;
+export type FlavoursProps = {
+  id: string;
+  image: string;
+  name: string;
+  select: boolean;
+  value: {
+    0: number;
+    1: number;
+    2: number;
+  };
 };
+
+type SizeProps = {
+  name: string;
+  size: number;
+  slices: number;
+  flavours: number;
+};
+
+type ContextValue = {
+  size: SizeProps;
+  flavoursState: FlavoursProps[];
+  quantity: number;
+
+  chooseFlavours: (prop: FlavoursProps) => void;
+  chooseQuantity: (prop: number) => void;
+
+  setSize: Dispatch<SetStateAction<SizeProps>>;
+};
+
+const SizeInitialState = {
+  name: '',
+  size: 0,
+  slices: 0,
+  flavours: 0,
+}
 
 const DataContext = createContext<ContextValue | null>(null)
 
 export function ContextProvider ({ children }: ContextProps): JSX.Element {
-  const [data, setData] = useState('')
+  const [size, setSize] = useState<SizeProps>(SizeInitialState)
+  const [flavoursState, setFlavoursState] = useState<FlavoursProps[]>([])
+  const [quantity, setQuantity] = useState(1)
+
+  const chooseFlavours = useCallback(
+    (prop: FlavoursProps) => {
+      if (flavoursState.includes(prop)) {
+        console.log('ja tem')
+        // flavours.filter((i) => i !== prop)
+      } else {
+        console.log('nao tem')
+        // setFlavours([...flavours].concat(prop))
+      }
+    },
+    [setFlavoursState, flavoursState],
+  )
+
+  const chooseQuantity = useCallback(
+    (prop: number) => setQuantity(prop),
+    [setQuantity],
+  )
 
   return (
     <DataContext.Provider
       value={{
-        data,
-        setData,
+        size,
+        flavoursState,
+        quantity,
+
+        chooseFlavours,
+        chooseQuantity,
+
+        setSize,
+        // checkboxes,
+        // setCheckboxes,
       }}
     >
       {children}

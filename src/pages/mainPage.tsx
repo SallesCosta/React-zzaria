@@ -3,10 +3,11 @@ import { VStack, Progress } from '@chakra-ui/react'
 import { Outlet } from 'react-router-dom'
 
 const Header = lazy(() => import('@/pages/components/Header'))
+// const Footer = lazy(() => import('@/pages/components/Footer'))
 
 const MainPage = () => {
   return (
-    <VStack>
+    <VStack h='100vh'>
       <Header />
       <Suspense fallback={<Progress size='xs' isIndeterminate />}>
         <Outlet />

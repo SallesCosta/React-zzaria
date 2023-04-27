@@ -22,6 +22,7 @@ import {
 
 import { auth } from '@/services/firebase'
 import { useNavigate } from 'react-router-dom'
+import { HOME, LOGIN } from './routes'
 
 type ContextProps = {
   children: ReactNode | ReactNode[];
@@ -61,7 +62,6 @@ export function AuthProvider ({ children }: ContextProps): JSX.Element {
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      console.log('passou pelo StateChanged')
       setUser(currentUser)
       setIsUserLoggedIn(true)
     })
@@ -88,8 +88,7 @@ export function AuthProvider ({ children }: ContextProps): JSX.Element {
       setUser(user)
 
       setIsUserLoggedIn(true)
-      navigate('/')
-      console.log('passou pelo login')
+      navigate(HOME)
     } catch (error: any) {
       console.log(error.message)
     }
@@ -116,9 +115,8 @@ export function AuthProvider ({ children }: ContextProps): JSX.Element {
   const logout = useCallback(async () => {
     await signOut(auth)
     setIsUserLoggedIn(false)
-    console.log('passou pelo logout')
-    navigate('/login')
-  }, [])
+    navigate(LOGIN)
+  }, [navigate])
 
   // const pressEnter = (e: KeyboardEventHandler<HTMLInputElement>) => {
   const pressEnter = async (e: any) => {
@@ -154,7 +152,7 @@ export function AuthProvider ({ children }: ContextProps): JSX.Element {
   )
 }
 
-export function useAuthContext () {
+export function useAuth () {
   const context = useContext(AuthContext)
   if (!context) {
     throw new Error(

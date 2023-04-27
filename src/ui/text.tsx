@@ -1,4 +1,4 @@
-import { Heading } from '@chakra-ui/react'
+import { Heading, Text } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 
 type TextProps = {
@@ -19,5 +19,13 @@ export const H2 = ({ children, props }: TextProps) => {
     <Heading as='h2' size='xl' {...props}>
       {children}
     </Heading>
+  )
+}
+
+export const Bold = ({ children, props }: TextProps) => {
+  return (
+    <Text as='b' {...props}>
+      {children}
+    </Text>
   )
 }

@@ -1,4 +1,13 @@
+import {
+  singleOrPlural,
+  toMoney,
+  PizzaFlavours,
+  HOME,
+  CHOOSE_PIZZA_QUANTITY,
+} from '@/helpers'
+
 import { useLocation } from 'react-router-dom'
+import { ChangeEvent, lazy, useState } from 'react'
 import {
   Text,
   Stack,
@@ -7,23 +16,48 @@ import {
   Image,
   VStack,
   Checkbox,
+  VisuallyHidden,
 } from '@chakra-ui/react'
 import { H1 } from '@/ui/text'
-import { singleOrPlural } from '@/helpers/singleOrPlural'
-import { PizzaFlavours } from '@/helpers/fake'
+
+const Footer = lazy(() => import('@/pages/components/Footer'))
 
 const ChoosePizzaFlavours = () => {
+  const [checkboxes, setCheckboxes] = useState<any>(() => ({}))
   const location = useLocation()
+
+  const { flavours } = location.state.pizzaSize // quantity of flavours choosed
   const flavoursQuantity = singleOrPlural(
     location.state.flavours,
     'Escolha o sabor',
-    `Escolha até ${location.state.flavours} sabores`,
+    `Escolha até ${flavours} sabores`,
   )
+
+  const handleChangeCheckbox =
+    (id: string) => (e: ChangeEvent<HTMLInputElement>) => {
+      const checkboxesChecked =
+        Object.values(checkboxes).filter(Boolean).length
+      if (checkboxesChecked === flavours && e.target.checked === true) return
+      setCheckboxes((checkboxes: any) => {
+        return {
+          ...checkboxes,
+          [id]: e.target.checked,
+        }
+      })
+    }
+
+  const getFlavoursNameAndId = (checkboxes: any) => {
+    return Object.entries(checkboxes)
+      .filter(([_, value]) => !!value)
+      .map(([id]) => ({
+        id,
+        name: PizzaFlavours.find((flavour) => flavour.id === id),
+      }))
+  }
 
   return (
     <>
-      <Stack w='100%' maxW='960px' textAlign='center' as='main'>
-        dentro da main
+      <Stack flexGrow={1} w='100%' maxW='960px' textAlign='center' as='main'>
         <H1>{flavoursQuantity}</H1>
         <SimpleGrid
           minChildWidth='288px' // 320px - 2* 1em (32px)
@@ -34,30 +68,58 @@ const ChoosePizzaFlavours = () => {
           {PizzaFlavours.map((pizza) => (
             <GridItem key={pizza.id}>
               <label htmlFor={pizza.name}>
-                <VStack
-                  cursor='pointer'
-                  borderWidth='1px'
-                  borderRadius='lg'
-                  overflow='hidden'
-                  w='100%'
-                >
-                  <Checkbox id={pizza.name} colorScheme='green' size='lg'>
+                {checkboxes && (
+                  <VStack
+                    cursor='pointer'
+                    borderWidth='1px'
+                    borderRadius='lg'
+                    overflow='hidden'
+                    w='100%'
+                    border={checkboxes[pizza.id] ? '2px' : '1'}
+                    borderColor='btn-active-border'
+                    boxShadow={checkboxes[pizza.id] ? 'lg' : 'base'}
+                  >
+                    <VisuallyHidden>
+                      <Checkbox
+                        onChange={handleChangeCheckbox(pizza.id)}
+                        isChecked={!!checkboxes[pizza.id]}
+                        id={pizza.name}
+                        size='lg'
+                      />
+                    </VisuallyHidden>
+                    <Image
+                      borderRadius='full'
+                      boxSize='200px'
+                      src={pizza.image}
+                      alt={`foto pizza de ${pizza.name}`}
+                    />
                     <Text>{pizza.name}</Text>
-                  </Checkbox>
-
-                  <Image
-                    borderRadius='full'
-                    boxSize='200px'
-                    src={pizza.image}
-                    alt={`foto pizza de ${pizza.name}`}
-                  />
-                  <Text>R${pizza.value[0]},00</Text>
-                </VStack>
+                    <Text>{toMoney(pizza.value[0])}</Text>
+                  </VStack>
+                )}
               </label>
             </GridItem>
           ))}
         </SimpleGrid>
       </Stack>
+      <Footer
+        buttons={[
+          {
+            to: HOME,
+            children: 'Mudar tamanho',
+            variant: 'solid',
+          },
+          {
+            state: {
+              ...location.state,
+              pizzaFlavours: getFlavoursNameAndId(checkboxes),
+            },
+            to: CHOOSE_PIZZA_QUANTITY,
+            children: 'Quantas pizzas',
+            variant: 'primary',
+          },
+        ]}
+      />
     </>
   )
 }

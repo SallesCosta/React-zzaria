@@ -5,7 +5,7 @@ import { App } from '@/app'
 import { ErrorBoundary } from 'react-error-boundary'
 import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from './ui/theme'
-import { Providers } from './helpers/providers'
+import { Providers } from './helpers'
 
 const rootElement = document.querySelector('[data-js="root"]')
 

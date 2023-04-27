@@ -10,8 +10,7 @@ import {
   Heading,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import { useAuthContext } from '@/helpers/authContext'
-// import { useNavigate } from 'react-router-dom'
+import { useAuth } from '@/helpers'
 
 const LoginPage = () => {
   const [showPwd, setShowPwd] = useState<boolean>(false)
@@ -24,8 +23,7 @@ const LoginPage = () => {
     loginPwd,
     setLoginEmail,
     loginEmail,
-    user,
-  } = useAuthContext()
+  } = useAuth()
 
   const handleloginWithEmailAndPassword = () => loginWithEmailAndPassword()
 
@@ -81,7 +79,6 @@ const LoginPage = () => {
             <Button onClick={handleGitHubSubmit}>Login with GitHub</Button>
             <Button onClick={handleLoginWithGoogle}>Login with Google</Button>
           </HStack>
-          {/* <Link to='/newuserform'> Créer un nouveau utilizateur</Link> */}
         </Stack>
       </VStack>
     </>

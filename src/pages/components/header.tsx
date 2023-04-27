@@ -13,12 +13,14 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { ExternalLinkIcon, AddIcon } from '@chakra-ui/icons'
-import { useAuthContext } from '@/helpers/authContext'
+import { useAuth } from '@/helpers/authContext'
 import { firstLetter, nameInEmail } from '@/helpers/nameAndEmail'
+import { Link } from 'react-router-dom'
+import { HOME } from '@/helpers'
 
 const Header = () => {
   const { toggleColorMode } = useColorMode()
-  const { logout, user } = useAuthContext()
+  const { logout, user } = useAuth()
 
   const name = nameInEmail(user.user.email)
   const firstLetterCapitalCase = firstLetter(name)
@@ -54,7 +56,11 @@ const Header = () => {
           },
         }}
       >
-        <Logo />
+        <Box display='inline-block'>
+          <Link to={HOME}>
+            <Logo />
+          </Link>
+        </Box>
       </Box>
       <Menu>
         <MenuButton

@@ -132,6 +132,8 @@ const styles = {
   global: {
     body: {
       background: 'bg-default',
+      display: 'flex',
+      flexDirection: 'column',
     },
   },
 }
