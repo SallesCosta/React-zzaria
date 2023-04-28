@@ -5,12 +5,10 @@ import {
   nameInEmail,
   PizzaSizes,
   useAuth,
-  useGlobalContext,
   CHOOSE_PIZZA_FLAVOURS,
 } from '@/helpers'
 const ChoosePizzaSize = () => {
   const { user } = useAuth()
-  const { setSize } = useGlobalContext()
 
   const name = nameInEmail(user.user.email)
 
@@ -28,7 +26,6 @@ const ChoosePizzaSize = () => {
           <GridItem key={pizza.name}>
             <Link state={{ pizzaSize: pizza }} to={CHOOSE_PIZZA_FLAVOURS}>
               <Box
-                onClick={() => setSize(pizza)}
                 borderWidth='1px'
                 borderRadius='lg'
                 overflow='hidden'

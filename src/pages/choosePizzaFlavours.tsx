@@ -2,10 +2,8 @@ import {
   singleOrPlural,
   toMoney,
   PizzaFlavours,
-  HOME,
   CHOOSE_PIZZA_QUANTITY,
 } from '@/helpers'
-
 import { useLocation } from 'react-router-dom'
 import { ChangeEvent, lazy, useState } from 'react'
 import {
@@ -33,6 +31,7 @@ const ChoosePizzaFlavours = () => {
     `Escolha até ${flavours} sabores`,
   )
 
+  console.log('lS : ', location.state)
   const handleChangeCheckbox =
     (id: string) => (e: ChangeEvent<HTMLInputElement>) => {
       const checkboxesChecked =
@@ -103,22 +102,21 @@ const ChoosePizzaFlavours = () => {
         </SimpleGrid>
       </Stack>
       <Footer
-        buttons={[
-          {
-            to: HOME,
+        buttons={{
+          back: {
             children: 'Mudar tamanho',
             variant: 'solid',
           },
-          {
+          action: {
+            to: CHOOSE_PIZZA_QUANTITY,
+            children: 'Quantas pizzas',
+            variant: 'primary',
             state: {
               ...location.state,
               pizzaFlavours: getFlavoursNameAndId(checkboxes),
             },
-            to: CHOOSE_PIZZA_QUANTITY,
-            children: 'Quantas pizzas',
-            variant: 'primary',
           },
-        ]}
+        }}
       />
     </>
   )

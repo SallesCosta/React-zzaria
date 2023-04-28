@@ -1,7 +1,6 @@
 import { BrowserRouter } from 'react-router-dom'
 import { ReactNode } from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
-import { ContextProvider } from './globalContext'
 import { AuthProvider } from './authContext'
 import { theme } from '@/ui/theme'
 
@@ -17,7 +16,6 @@ type Provider = {
 // TODO: use ChakraProvider seems does not workin.
 const providers: Provider[] = [
   { component: BrowserRouter },
-  { component: ContextProvider },
   { component: AuthProvider },
   {
     component: ChakraProvider,

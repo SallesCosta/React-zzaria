@@ -1,31 +1,36 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Box, Button, Stack, Text } from '@chakra-ui/react'
 
 import { Bold } from '@/ui/text'
 import { nameInEmail, singleOrPlural, useAuth, WithRouter } from '@/helpers'
 
-type eachButtonProps = {
-  to: string;
-  children: string;
-  variant?: string;
-  state?: any;
-};
-
 type buttonsProps = {
-  buttons: eachButtonProps[];
+  buttons: {
+    back: {
+      children: string;
+      variant?: string;
+    };
+    action: {
+      state: any;
+      to: string;
+      children: string;
+      variant?: string;
+    };
+  };
 };
 
 const Footer = (buttons: buttonsProps) => {
   const { user } = useAuth()
-  const userName = nameInEmail(user.user.email)
-
   const location = useLocation()
+  const navigate = useNavigate()
+
   const { pizzaSize, pizzaFlavours } = location.state
   const { flavours, name, slices } = pizzaSize
-  console.log('pizzaFlavours: ', pizzaFlavours)
 
+  const userName = nameInEmail(user.user.email)
   const quantity = singleOrPlural(flavours, 'sabor', 'sabores')
 
+  const backPage = () => navigate(-1)
   return (
     <Stack
       bg={['red', 'green', 'gray', 'violet']}
@@ -58,13 +63,15 @@ const Footer = (buttons: buttonsProps) => {
       )}
 
       <Box>
-        {buttons.buttons.map((button: any) => (
-          <Button key={button.to}>
-            <Link to={button.to} {...button}>
-              {button.children}
-            </Link>
-          </Button>
-        ))}
+        <Button onClick={backPage} {...buttons.buttons.back} />
+        <Button variant={buttons.buttons.action.variant}>
+          <Link
+            to={buttons.buttons.action.to}
+            state={buttons.buttons.action.state}
+          >
+            {buttons.buttons.action.children}
+          </Link>
+        </Button>
       </Box>
     </Stack>
   )
