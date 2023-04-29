@@ -10,12 +10,12 @@ import {
   LOGIN,
   CHOOSE_PIZZA_QUANTITY,
 } from '@/helpers'
+import { ChoosePizzaQuantity } from './pages/choosePizzaQuantity'
 
 const MainPage = lazy(() => import('@/pages/mainPage'))
 const LoginPage = lazy(() => import('@/pages/loginPage'))
 const ChoosePizzaSize = lazy(() => import('@/pages/choosePizzaSize'))
 const ChoosePizzaFlavours = lazy(() => import('@/pages/choosePizzaFlavours'))
-const ChoosePizzaQuantity = lazy(() => import('@/pages/choosePizzaQuantity'))
 
 export function App () {
   return (
@@ -30,6 +30,7 @@ export function App () {
                 path={CHOOSE_PIZZA_FLAVOURS}
               />
               <Route
+                // @ts-ignore
                 element={<ChoosePizzaQuantity />}
                 path={CHOOSE_PIZZA_QUANTITY}
               />

@@ -11,6 +11,7 @@ type buttonsProps = {
       variant?: string;
     };
     action: {
+      disabled: boolean;
       state: any;
       to: string;
       children: string;
@@ -26,7 +27,6 @@ const Footer = (buttons: buttonsProps) => {
 
   const { pizzaSize, pizzaFlavours } = location.state
   const { flavours, name, slices } = pizzaSize
-
   const userName = nameInEmail(user.user.email)
   const quantity = singleOrPlural(flavours, 'sabor', 'sabores')
 
@@ -64,7 +64,10 @@ const Footer = (buttons: buttonsProps) => {
 
       <Box>
         <Button onClick={backPage} {...buttons.buttons.back} />
-        <Button variant={buttons.buttons.action.variant}>
+        <Button
+          isDisabled={buttons.buttons.action.disabled}
+          variant={buttons.buttons.action.variant}
+        >
           <Link
             to={buttons.buttons.action.to}
             state={buttons.buttons.action.state}

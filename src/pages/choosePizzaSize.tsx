@@ -9,7 +9,6 @@ import {
 } from '@/helpers'
 const ChoosePizzaSize = () => {
   const { user } = useAuth()
-
   const name = nameInEmail(user.user.email)
 
   return (

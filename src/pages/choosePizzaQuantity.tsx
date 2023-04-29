@@ -1,17 +1,27 @@
-import { HOME } from '@/helpers'
-import { useLocation } from 'react-router-dom'
+import { HOME, CHECKOUT } from '@/helpers'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { Stack, Input, Box } from '@chakra-ui/react'
 import { H1 } from '@/ui/text'
-import { lazy, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
+import Footer from '@/pages/components/Footer'
 
-const Footer = lazy(() => import('@/pages/components/Footer'))
-
-const ChoosePizzaQuantity = () => {
+export const ChoosePizzaQuantity = () => {
+  const [value, setValue] = useState(1)
   const location = useLocation()
-  const [value, setValue] = useState('')
+  const navigate = useNavigate()
 
-  console.log('locationState choosePizzaQuantity: ', location.state)
+  if (!location.state) {
+    return navigate(HOME)
+  }
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    if (+value >= 1) {
+      setValue(+value)
+    }
+  }
+
   return (
     <Stack maxW='960px' w='100%' textAlign='center' as='main'>
       <H1>Quantity with this flavours?</H1>
@@ -22,24 +32,20 @@ const ChoosePizzaQuantity = () => {
           type='number'
           autoFocus
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={handleChange}
         />
       </Box>
       <Footer
         buttons={{
           back: {
             children: 'Mudar sabores',
-            variant: 'solid',
           },
           action: {
-            to: HOME,
+            to: CHECKOUT,
             children: 'Finalizar compra',
-            variant: 'primary',
           },
         }}
       />
     </Stack>
   )
 }
-
-export default ChoosePizzaQuantity

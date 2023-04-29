@@ -22,6 +22,7 @@ const Footer = lazy(() => import('@/pages/components/Footer'))
 
 const ChoosePizzaFlavours = () => {
   const [checkboxes, setCheckboxes] = useState<any>(() => ({}))
+  const [disabled, setDisabled] = useState<boolean>(true)
   const location = useLocation()
 
   const { flavours } = location.state.pizzaSize // quantity of flavours choosed
@@ -31,11 +32,10 @@ const ChoosePizzaFlavours = () => {
     `Escolha até ${flavours} sabores`,
   )
 
-  console.log('lS : ', location.state)
+  const checkboxesChecked = Object.values(checkboxes).filter(Boolean).length
+
   const handleChangeCheckbox =
     (id: string) => (e: ChangeEvent<HTMLInputElement>) => {
-      const checkboxesChecked =
-        Object.values(checkboxes).filter(Boolean).length
       if (checkboxesChecked === flavours && e.target.checked === true) return
       setCheckboxes((checkboxes: any) => {
         return {
@@ -108,6 +108,7 @@ const ChoosePizzaFlavours = () => {
             variant: 'solid',
           },
           action: {
+            disabled: checkboxesChecked === 0,
             to: CHOOSE_PIZZA_QUANTITY,
             children: 'Quantas pizzas',
             variant: 'primary',
