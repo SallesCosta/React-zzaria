@@ -2,7 +2,6 @@ import {
   Button,
   FormLabel,
   Input,
-  VStack,
   HStack,
   Checkbox,
   FormControl,
@@ -10,7 +9,10 @@ import {
   Heading,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import { useAuth } from '@/helpers'
+import { useAuth, useLang } from '@/contexts'
+import { LangControl } from './components/langControl'
+import { AnimatedText, Container, Logo } from '@/ui'
+import langSource from '@/lang/langSource.json'
 
 const LoginPage = () => {
   const [showPwd, setShowPwd] = useState<boolean>(false)
@@ -25,18 +27,29 @@ const LoginPage = () => {
     loginEmail,
   } = useAuth()
 
+  const { language } = useLang()
+
   const handleloginWithEmailAndPassword = () => loginWithEmailAndPassword()
 
   const handleGitHubSubmit = () => loginWithGitHub()
 
   const handleLoginWithGoogle = () => loginWithGoogle()
 
+  const l = langSource[language]
   return (
     <>
-      <VStack mt={9} spacing={6}>
+      <Container
+        bg='bg-default-b'
+        flexDir='column'
+        boxShadow='esc-shadow-lg-bottom'
+        spacing={6}
+        m='0 auto'
+        w={500}
+      >
         <Heading as='h1' size='2xl'>
-          Login
+          <Logo width='100%' />
         </Heading>
+        <LangControl />
         <Stack spacing={3} w='90%' maxW='500'>
           <FormControl>
             <FormLabel>E-mail</FormLabel>
@@ -49,7 +62,9 @@ const LoginPage = () => {
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Password</FormLabel>
+            <FormLabel>
+              <AnimatedText>{l.password}</AnimatedText>
+            </FormLabel>
             <Input
               isRequired
               value={loginPwd}
@@ -62,7 +77,7 @@ const LoginPage = () => {
           <HStack justifyContent='right'>
             <label htmlFor='show' />
             <Checkbox name='show' onChange={() => setShowPwd(!showPwd)}>
-              Show password
+              <AnimatedText>{l.showPassword}</AnimatedText>
             </Checkbox>
           </HStack>
         </Stack>
@@ -73,14 +88,15 @@ const LoginPage = () => {
             w='100%'
             variant='primary'
           >
-            Send
+            <AnimatedText>{l.send}</AnimatedText>
           </Button>
           <HStack justifyContent='space-between'>
             <Button onClick={handleGitHubSubmit}>Login with GitHub</Button>
             <Button onClick={handleLoginWithGoogle}>Login with Google</Button>
           </HStack>
         </Stack>
-      </VStack>
+        <HStack />
+      </Container>
     </>
   )
 }

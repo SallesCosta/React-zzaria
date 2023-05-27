@@ -22,7 +22,7 @@ import {
 
 import { auth } from '@/services/firebase'
 import { useNavigate } from 'react-router-dom'
-import { HOME, LOGIN } from './routes'
+import { HOME, LOGIN } from '@/helpers'
 
 type ContextProps = {
   children: ReactNode | ReactNode[];
@@ -118,12 +118,10 @@ export function AuthProvider ({ children }: ContextProps): JSX.Element {
     navigate(LOGIN)
   }, [navigate])
 
-  // const pressEnter = (e: KeyboardEventHandler<HTMLInputElement>) => {
-  const pressEnter = async (e: any) => {
-    const keyCode = e.which || e.keyCode
-    const ENTER = 13
+  const pressEnter = (e: KeyboardEvent) => {
+    const ENTER = 'Enter'
 
-    if (keyCode === ENTER) {
+    if (e.key === ENTER) {
       // await login({loginEmail, loginPw})
     }
   }

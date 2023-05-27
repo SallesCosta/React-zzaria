@@ -7,7 +7,6 @@ export const PizzaFlavours = [
     id: '0',
     image: pizzaCalabresa,
     name: 'Calabresa',
-    select: false,
     value: {
       0: 20,
       1: 30,
@@ -18,7 +17,6 @@ export const PizzaFlavours = [
     id: '1',
     image: pizzaFrango,
     name: 'Frango com catupiry',
-    select: false,
     value: {
       0: 25,
       1: 35,
@@ -29,7 +27,6 @@ export const PizzaFlavours = [
     id: '2',
     image: pizzaPrestigio,
     name: 'Prestígio',
-    select: false,
     value: {
       0: 23,
       1: 33,

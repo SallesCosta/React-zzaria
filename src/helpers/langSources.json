@@ -1,0 +1,14 @@
+{
+  "langSource": {
+    "portuges": {
+      "send": "Enviar",
+      "password": "Senha",
+      "showPassword": "Mostrar senha"
+    },
+    "english": {
+      "send": "Send",
+      "password": "Password",
+      "showPassword": "Show password"
+    }
+  }
+}

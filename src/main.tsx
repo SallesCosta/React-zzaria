@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { App } from '@/app'
 
 import { ErrorBoundary } from 'react-error-boundary'
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import { theme } from './ui/theme'
 import { Providers } from './helpers'
 
@@ -40,6 +40,7 @@ root.render(
   <StrictMode>
     <Providers>
       <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <App />
       </ChakraProvider>
     </Providers>

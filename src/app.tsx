@@ -1,21 +1,28 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, ComponentType } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { Progress } from '@chakra-ui/react'
 
 import {
   PrivateRoute,
+  CHECKOUT,
   CHOOSE_PIZZA_FLAVOURS,
   HOME,
   LOGIN,
   CHOOSE_PIZZA_QUANTITY,
+  CONFIRMATION,
+  SUCCESS,
 } from '@/helpers'
 import { ChoosePizzaQuantity } from './pages/choosePizzaQuantity'
 
 const MainPage = lazy(() => import('@/pages/mainPage'))
 const LoginPage = lazy(() => import('@/pages/loginPage'))
-const ChoosePizzaSize = lazy(() => import('@/pages/choosePizzaSize'))
 const ChoosePizzaFlavours = lazy(() => import('@/pages/choosePizzaFlavours'))
+const Confirmation = lazy(() => import('@/pages/confirmation'))
+const Success = lazy(() => import('@/pages/successPage'))
+
+const CheckoutPage = lazy(() => import('@/pages/checkoutPage') as Promise<{ default: ComponentType<{}> }>)
+const ChoosePizzaSize = lazy(() => import('@/pages/choosePizzaSize') as Promise<{ default: ComponentType<{}> }>)
 
 export function App () {
   return (
@@ -34,6 +41,9 @@ export function App () {
                 element={<ChoosePizzaQuantity />}
                 path={CHOOSE_PIZZA_QUANTITY}
               />
+              <Route element={<CheckoutPage />} path={CHECKOUT} />
+              <Route element={<Confirmation />} path={CONFIRMATION} />
+              <Route element={<Success />} path={SUCCESS} />
             </Route>
           </Route>
           <Route element={<LoginPage />} path={LOGIN} />

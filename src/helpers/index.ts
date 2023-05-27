@@ -1,9 +1,7 @@
 export { toMoney } from './toMoney'
 export { Providers } from './providers'
 export { PrivateRoute } from './privateRoute'
-export { useAuth } from './authContext'
 export { singleOrPlural } from './singleOrPlural'
-export { PizzaFlavours, PizzaSizes } from './fake'
 export { WithRouter } from './withRouter'
 export { nameInEmail, firstLetter } from './nameAndEmail'
 export {
@@ -12,4 +10,9 @@ export {
   LOGIN,
   HOME,
   CHECKOUT,
+  CONFIRMATION,
+  SUCCESS,
 } from './routes'
+export { duid } from './uuid'
+export { cepMask, phoneMask } from './mask'
+export { useCollection } from './useCollection'

@@ -1,8 +1,8 @@
-import { lazy, Suspense } from 'react'
-import { VStack, Progress } from '@chakra-ui/react'
+import { lazy, Suspense, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
+import { VStack, Progress } from '@chakra-ui/react'
 
-const Header = lazy(() => import('@/pages/components/Header'))
+const Header = lazy(() => import('@/pages/components/header'))
 
 const MainPage = () => {
   return (
