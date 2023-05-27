@@ -9,7 +9,6 @@ import {
   FormEvent,
   ChangeEvent,
   useMemo,
-  useEffect,
 } from 'react'
 import { duid, cepMask } from '@/helpers'
 import { saveData } from '@/services/firebase'
@@ -23,7 +22,7 @@ type ContextProps = {
   children: ReactNode | ReactNode[];
 };
 
-type PizzaSize = {
+export type PizzaSize = {
   id: string;
   slices: number;
   name: string;
@@ -46,8 +45,8 @@ type PizzaFlavourProps = {
 }
 
 type PizzaProps = {
-  pizzaSize: PizzaSize;
-  pizzaFlavours: PizzaFlavourProps[];
+  size: PizzaSize;
+  flavours: PizzaFlavourProps[];
   quantity: number;
 };
 
@@ -55,9 +54,17 @@ interface PizzaPropsId extends PizzaProps {
   id: string;
 }
 
+export type DataProps = {
+  userId: string;
+  address: AddressProps;
+  phone: string;
+  createdAt: any;
+  pizzas: PizzaProps[];
+}
+
 type ContextValue = {
   phone: string;
-  addPizzaToOrder: any;
+  addPizzaToOrder: (pizza: PizzaPropsId) => void;
   sendOrder: () => void;
   removePizza: (id: string) => void;
   handleAddress: (e: FormEvent<HTMLFormElement>) => void;
@@ -90,16 +97,15 @@ export const OrderProvider = ({ children }: ContextProps): JSX.Element => {
   const orderToSend = useMemo(() => {
     return {
       userId: user?.user?.uid,
-      createdAt: serverTimestamp(),
       address,
       phone,
+      createdAt: serverTimestamp(),
       pizzas: pizzas.map((p) => ({
-        size: p.pizzaSize,
-        flavours: p.pizzaFlavours,
+        size: p.size,
+        flavours: p.flavours,
         quantity: p.quantity,
       })),
     }
-    // } as Order
   }, [user, address, phone, pizzas])
 
   const order = {
@@ -107,10 +113,6 @@ export const OrderProvider = ({ children }: ContextProps): JSX.Element => {
     address,
     phone,
   }
-
-  useEffect(() => {
-    console.log('orderToSend', orderToSend)
-  }, [orderToSend])
 
   const newPizza = useCallback(
     (pizza: PizzaProps): PizzaPropsId => {
@@ -121,7 +123,6 @@ export const OrderProvider = ({ children }: ContextProps): JSX.Element => {
 
   const addPizzaToOrder = useCallback(
     (pizza: PizzaPropsId) => {
-      console.log('aqui: ', newPizza(pizza))
       if (orderInProgress) {
         return setAddPizza(() => pizzas.concat(newPizza(pizza)))
       }
@@ -132,7 +133,6 @@ export const OrderProvider = ({ children }: ContextProps): JSX.Element => {
   )
 
   const sendOrder = useCallback(() => {
-    console.log('sendOrder')
     saveData('orders', orderToSend)
     setOrderInProgress(false)
   }, [orderToSend])

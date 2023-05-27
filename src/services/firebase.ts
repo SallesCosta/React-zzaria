@@ -2,6 +2,7 @@ import { getDocs, collection, addDoc } from 'firebase/firestore'
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from '@firebase/firestore'
 import { getAuth } from 'firebase/auth'
+import { DataProps } from '@/contexts/orderContext'
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -27,7 +28,8 @@ export const getFromDb = async (coll: string) => {
   return documents
 }
 
-export const saveData = async (coll: string, data: any) => {
+export const saveData = async (coll: string, data: DataProps) => {
+  console.log('aqui: ', data)
   try {
     await addDoc(collection(db, coll), data)
   } catch (err: unknown) {

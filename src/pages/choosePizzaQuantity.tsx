@@ -39,7 +39,6 @@ export const ChoosePizzaQuantity = () => {
     ...location.state,
     quantity,
   }
-  console.log('data', data)
 
   const addPizza = () => {
     addPizzaToOrder(data)

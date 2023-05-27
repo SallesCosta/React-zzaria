@@ -22,18 +22,15 @@ export const OrderList = () => {
 
   return (
     <List spacing={2}>
-      {eachOrder.map((pizza, index) => {
-        const { pizzaSize, pizzaFlavours, quantity, id } = pizza
-        const { flavours, name, slices } = pizzaSize
-
+      {eachOrder.map((p, index) => {
         return (
           <ListItem key={index}>
-            <Bold> {quantity}</Bold> - <Bold>{name}</Bold> (
-            {singleOrPlural(flavours, `${l.flavor}`, `${l.flavors}`)} flavours
-            and {slices} slices){' '}
-            {singleOrPlural(pizzaFlavours.length, 'sabor', 'sabores')}{' '}
+            <Bold> {p.quantity}</Bold> - <Bold>{p.size.name}</Bold> (
+            {singleOrPlural(p.size.flavours, `${l.flavor}`, `${l.flavors}`)} flavours
+            and {p.size.slices} slices){' '}
+            {singleOrPlural(p.flavours.length, 'sabor', 'sabores')}{' '}
             <Bold>
-              {pizzaFlavours.map((name: any) => name.name.name).join(', ')}
+              {p.flavours.map((name: any) => name.name.name).join(', ')}
             </Bold>
             {isCheckout && (
               <SmallCloseIcon
@@ -41,7 +38,7 @@ export const OrderList = () => {
                 h={4}
                 color='red.500'
                 cursor='pointer'
-                onClick={() => removePizza(id)}
+                onClick={() => removePizza(p.id)}
               />
             )}
           </ListItem>

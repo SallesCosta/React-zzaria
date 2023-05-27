@@ -4,9 +4,15 @@ import { Box, Button, HStack, VStack } from '@chakra-ui/react'
 import { OrderList } from './orderList'
 import { Container, AnimatedText, Bold, H4 } from '@/ui'
 
+import { PizzaSize } from '@/contexts/orderContext'
 import { useLang } from '@/contexts'
 import langSource from '@/lang/langSource.json'
 import { CONFIRMATION, singleOrPlural, WithRouter } from '@/helpers'
+
+type State = {
+  size: PizzaSize;
+  flavours: string[];
+};
 
 type buttonsProps = {
   buttons: {
@@ -17,7 +23,7 @@ type buttonsProps = {
     action: {
       onClick?: () => void;
       isDisabled?: boolean;
-      state: any;
+      state: State | null;
       to: string;
       children: string;
       variant?: string;
@@ -30,10 +36,9 @@ const Footer = (buttons: buttonsProps) => {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const { pizzaSize, pizzaFlavours } = location.state
-  const { flavours, name, slices } = pizzaSize
+  const { size, flavours } = location.state
 
-  const quantity = singleOrPlural(flavours, 'sabor', 'sabores')
+  const quantity = singleOrPlural(size.flavours, 'sabor', 'sabores')
 
   const backPage = () => navigate(-1)
 
@@ -50,21 +55,21 @@ const Footer = (buttons: buttonsProps) => {
         <HStack>
           <AnimatedText>
             <Bold>Size: </Bold>
-            {name} ({flavours} {quantity} and {slices} slices)
+            {size.name} ({size.flvours} {quantity} and {size.slices} slices)
           </AnimatedText>
         </HStack>
 
-        {pizzaFlavours && (
+        {flavours && (
           <HStack>
             <Bold>
               {singleOrPlural(
-                pizzaFlavours.length,
+                flavours.length,
                 `${l.flavor}`,
                 `${l.flavors}`,
               )}
             </Bold>
             <AnimatedText>
-              {pizzaFlavours.map((name: any) => name.name.name).join(', ')}
+              {flavours.map((name: any) => name.name.name).join(', ')}
             </AnimatedText>
           </HStack>
         )}

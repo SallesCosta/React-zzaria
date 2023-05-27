@@ -59,7 +59,7 @@ const ChoosePizzaSize = () => {
           ))}
         {PizzaSizes?.map((pizza: any) => (
           <GridItem key={pizza.name}>
-            <Link state={{ pizzaSize: pizza }} to={CHOOSE_PIZZA_FLAVOURS}>
+            <Link state={{ size: pizza }} to={CHOOSE_PIZZA_FLAVOURS}>
               <VStack
                 borderWidth='1px'
                 bg='esc-cardBackground'

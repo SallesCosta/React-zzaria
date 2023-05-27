@@ -36,10 +36,9 @@ const ChoosePizzaFlavours = () => {
 
   const l = langSource[language]
 
-  console.log('data: ', data)
   const PizzaFlavours = data
 
-  const { flavours } = location.state.pizzaSize
+  const { flavours } = location.state.size
 
   const flavoursQuantity = singleOrPlural(
     flavours,
@@ -143,7 +142,7 @@ const ChoosePizzaFlavours = () => {
             variant: 'primary',
             state: {
               ...location.state,
-              pizzaFlavours: getFlavoursNameAndId(checkboxes),
+              flavours: getFlavoursNameAndId(checkboxes),
             },
           },
         }}
