@@ -37,6 +37,7 @@ export const UserMenu = () => {
             name={firstLetterCapitalCase}
             color='esc-textHeading'
             bg='esc-shadowBox1'
+            size='sm'
           />
           <AnimatedText>
             {l.hello} {name}

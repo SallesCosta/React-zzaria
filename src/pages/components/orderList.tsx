@@ -1,4 +1,4 @@
-import { List, ListItem } from '@chakra-ui/react'
+import { Box, List, ListItem, Center } from '@chakra-ui/react'
 import { useLocation } from 'react-router-dom'
 import { SmallCloseIcon } from '@chakra-ui/icons'
 
@@ -24,22 +24,41 @@ export const OrderList = () => {
     <List spacing={2}>
       {eachOrder.map((p, index) => {
         return (
-          <ListItem key={index}>
-            <Bold> {p.quantity}</Bold> - <Bold>{p.size.name}</Bold> (
-            {singleOrPlural(p.size.flavours, `${l.flavor}`, `${l.flavors}`)} flavours
-            and {p.size.slices} slices){' '}
-            {singleOrPlural(p.flavours.length, 'sabor', 'sabores')}{' '}
-            <Bold>
-              {p.flavours.map((name: any) => name.name.name).join(', ')}
-            </Bold>
+          <ListItem
+            w='100%'
+            key={index}
+            h={isCheckout ? 16 : ''}
+            alignItems='center' display='flex' justifyContent='space-between'
+            pl={3}
+            _hover={{
+              background: 'esc-cardBackground',
+            }}
+          >
+            <Box>
+              <Bold>{p.quantity}</Bold> <Bold>{p.size.name}</Bold> (
+              {p.size.flavours} {singleOrPlural(p.size.flavours, `${l.flavor}`, `${l.flavors} `)}
+              {' '} and {p.size.slices} slices){' '}
+              {singleOrPlural(p.flavours.length, 'sabor', 'sabores')}{' '}
+              <Bold>
+                {p.flavours.map((name: any) => name.name.name).join(', ')}
+              </Bold>
+            </Box>
             {isCheckout && (
-              <SmallCloseIcon
-                w={4}
-                h={4}
-                color='red.500'
-                cursor='pointer'
+              <Center
                 onClick={() => removePizza(p.id)}
-              />
+                cursor='pointer'
+                h={isCheckout ? 16 : ''}
+                minW={8}
+                _hover={{
+                  background: 'red.200',
+                }}
+              >
+                <SmallCloseIcon
+                  w={6}
+                  h={6}
+                  color='red.500'
+                />
+              </Center>
             )}
           </ListItem>
         )

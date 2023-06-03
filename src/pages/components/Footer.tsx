@@ -8,6 +8,7 @@ import { PizzaSize } from '@/contexts/orderContext'
 import { useLang } from '@/contexts'
 import langSource from '@/lang/langSource.json'
 import { CONFIRMATION, singleOrPlural, WithRouter } from '@/helpers'
+import { InfoAddress } from '@/pages/components/infoAddress'
 
 type State = {
   size: PizzaSize;
@@ -114,15 +115,22 @@ export const CheckoutFooter = () => {
   return (
     <Container
       as='footer'
-      justifyContent='flex-end'
       h='200px'
+      maxH='200px'
       boxShadow='esc-shadow-lg-top'
+      overflowY='hidden'
     >
-      <Button variant='primary'>
-        <AnimatedText>
-          <Link to={CONFIRMATION}>{l.confirmData}</Link>
-        </AnimatedText>
-      </Button>
+      <HStack
+        w='960px' m='auto'
+        justifyContent='space-between'
+      >
+        <InfoAddress />
+        <Button variant='primary'>
+          <AnimatedText>
+            <Link to={CONFIRMATION}>{l.confirmData}</Link>
+          </AnimatedText>
+        </Button>
+      </HStack>
     </Container>
   )
 }

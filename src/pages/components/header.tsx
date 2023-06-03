@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { Logo, Container } from '@/ui'
 import { LangControl } from './langControl'
 import { UserMenu } from './userMenu'
+import { HStack, Switch, VStack } from '@chakra-ui/react'
 
 const Header = () => {
   const location = useLocation()
@@ -18,8 +19,10 @@ const Header = () => {
       boxShadow='esc-shadow-lg-bottom'
     >
       <Logo width='200px' />
-      {!isCheckout && <UserMenu />}
-      <LangControl />
+      <VStack>
+        {!isCheckout && <UserMenu />}
+        <LangControl />
+      </VStack>
     </Container>
   )
 }

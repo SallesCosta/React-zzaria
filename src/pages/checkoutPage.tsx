@@ -30,15 +30,14 @@ const CheckoutPage = () => {
         maxW='960px'
         p='2em 0'
         alignItems='start'
-        // border='1px'
         justifyContent='space-between'
       >
-        {/* <VStack w='50%' textAlign='center'> */}
-        {/*   <H2> */}
-        {/*     <AnimatedText>{l.deliveryAddress}?</AnimatedText> */}
-        {/*   </H2> */}
-        {/*   <FormAdress /> */}
-        {/* </VStack> */}
+        <VStack w='50%' textAlign='center'>
+          <H2>
+            <AnimatedText>{l.deliveryAddress}?</AnimatedText>
+          </H2>
+          <FormAdress />
+        </VStack>
         <Center height='100%' w={2}>
           <Divider orientation='vertical' />
         </Center>
@@ -47,6 +46,8 @@ const CheckoutPage = () => {
             <AnimatedText>{l.orderInformation}</AnimatedText>
           </H2>
           <OrderList />
+          {/* <Divider p={2} /> */}
+          {/* <InfoAddress /> */}
         </VStack>
       </HStack>
       <CheckoutFooter />
