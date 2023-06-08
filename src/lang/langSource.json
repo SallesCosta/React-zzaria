@@ -32,7 +32,12 @@
     "confirmData": "Confirmar dados",
     "checkOrder": "Confira seu pedido",
     "pizzaWillArrive": "Sua pizza chegará em 45-50 minutos",
-    "backToStart": "Voltar para o início"
+    "backToStart": "Voltar para o início",
+    "size": "Tamanho",
+    "yourPackage": "Seu Pacote",
+    "and": "e",
+    "save": "Salvar",
+    "verify": "Confira, por favor, se está tudo certo com o seu pedido"
   },
   "fr": {
     "welcome": "Bienvenue",
@@ -67,7 +72,12 @@
     "confirmData": "Confirmer les données",
     "checkOrder": "Vérifiez votre commande",
     "pizzaWillArrive": "Votre pizza arrivera dans 45-50 minutes",
-    "backToStart": "Retour à l'accueil"
+    "backToStart": "Retour à l'accueil",
+    "size": "Taille",
+    "yourPackage": "Votre Package",
+    "and": "et",
+    "save": "Enregistrer",
+    "verify": "Vérifiez, s'il vous plaît, si tout est en ordre avec votre commande"
   },
 
   "it": {
@@ -103,7 +113,12 @@
     "confirmData": "Conferma dati",
     "checkOrder": "Verifica il tuo ordine",
     "pizzaWillArrive": "La tua pizza arriverà in 45-50 minuti",
-    "backToStart": "Torna all'inizio"
+    "backToStart": "Torna all'inizio",
+    "size": "Dimensione",
+    "yourPackage": "Il Tuo Pacchetto",
+    "and": "e",
+    "save": "Salva",
+    "verify": "Controlla, per favore, se è tutto corretto con il tuo ordine"
   },
   "es": {
     "welcome": "Bienvenido",
@@ -138,7 +153,12 @@
     "confirmData": "Confirmar datos",
     "checkOrder": "Revisa tu pedido",
     "pizzaWillArrive": "Tu pizza llegará en 45-50 minutos",
-    "backToStart": "Volver al inicio"
+    "backToStart": "Volver al inicio",
+    "size": "Tamaño",
+    "yourPackage": "Tu Paquete",
+    "and": "y",
+    "save": "Guardar",
+    "verify": "Verifica, por favor, si todo está correcto con tu pedido"
   },
   "en": {
     "welcome": "Welcome",
@@ -173,6 +193,11 @@
     "confirmData": "Confirm Data",
     "checkOrder": "Check Your Order",
     "pizzaWillArrive": "Your pizza will arrive in 45-50 minutes",
-    "backToStart": "Back to Start"
+    "backToStart": "Back to Start",
+    "size": "Size",
+    "yourPackage": "Your Package",
+    "and": "and",
+    "save": "Save",
+    "verify":"Please check if everything is correct with your order"
   }
 }

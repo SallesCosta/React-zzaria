@@ -32,6 +32,8 @@ export const OrderList = () => {
             pl={3}
             _hover={{
               background: 'esc-cardBackground',
+              border: '1px solid',
+              borderColor: 'red.500',
             }}
           >
             <Box>

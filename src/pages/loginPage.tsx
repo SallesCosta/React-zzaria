@@ -43,7 +43,7 @@ const LoginPage = () => {
         flexDir='column'
         boxShadow='esc-shadow-lg-bottom'
         spacing={6}
-        m='0 auto'
+        m='2em auto'
         w={500}
       >
         <Heading as='h1' size='2xl'>

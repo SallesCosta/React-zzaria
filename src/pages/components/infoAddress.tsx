@@ -1,8 +1,9 @@
 import { useOrder, useLang } from '@/contexts'
 
-import { H4, AnimatedText } from '@/ui'
-import { Box, Stack } from '@chakra-ui/react'
+import { H4 } from '@/ui'
+import { Grid } from '@chakra-ui/react'
 import langSource from '@/lang/langSource.json'
+import { AdressGridItem } from '@/ui/formGridItem'
 
 export const InfoAddress = () => {
   const { order } = useOrder()
@@ -12,31 +13,30 @@ export const InfoAddress = () => {
     order?.address
 
   const l = langSource[language]
-
   return (
-    <Stack>
-      <H4>{l.deliveryAddress}</H4>
-      <AnimatedText>
+    <Grid w='510px'>
+      <H4 pb='34px'>{l.deliveryAddress}</H4>
+      <AdressGridItem colSpan={12}>
         {l.street}: {street}
-      </AnimatedText>
-      <AnimatedText>
+      </AdressGridItem>
+      <AdressGridItem colSpan={6}>
         {l.number}: {number}{' '}
-      </AnimatedText>
-      <AnimatedText>
+      </AdressGridItem>
+      <AdressGridItem colSpan={6} textAlign='right'>
         {l.postalCode}: {codePostal}
-      </AnimatedText>
-      <AnimatedText>
+      </AdressGridItem>
+      <AdressGridItem colSpan={12}>
         {l.complement}: {complement}
-      </AnimatedText>
-      <AnimatedText>
+      </AdressGridItem>
+      <AdressGridItem colSpan={8}>
         {l.city}: {city}
-      </AnimatedText>
-      <AnimatedText>
+      </AdressGridItem>
+      <AdressGridItem colSpan={4} textAlign='right'>
         {l.state}: {state}
-      </AnimatedText>
-      <AnimatedText>
+      </AdressGridItem>
+      <AdressGridItem colSpan={12}>
         {l.phone}: {order?.phone}
-      </AnimatedText>
-    </Stack>
+      </AdressGridItem>
+    </Grid>
   )
 }

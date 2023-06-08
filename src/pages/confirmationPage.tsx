@@ -1,27 +1,35 @@
 import { InfoAddress } from './components/infoAddress'
-import { Box, Button, Stack, Text } from '@chakra-ui/react'
+import { VStack, Button, Stack, Divider } from '@chakra-ui/react'
 import { AnimatedText, H1, H2, Container } from '@/ui'
 import { nameInEmail, SUCCESS } from '@/helpers'
-import { useAuth } from '@/contexts'
+import { useAuth, useLang } from '@/contexts'
 import { OrderList } from './components/orderList'
 import { Link } from 'react-router-dom'
 import { useOrder } from '@/contexts/orderContext'
+import langSource from '@/lang/langSource.json'
 
-const Confirmation = () => {
+const ConfirmationPage = () => {
   const { user } = useAuth()
   const { sendOrder } = useOrder()
   const name = nameInEmail(user.user.email)
-  // TODO: switch to dinamic lang text
+  const { language } = useLang()
+
+  const l = langSource[language]
+
   return (
     <>
-      <Stack flexGrow='1' pt='2em'>
-        <H1>{name}</H1>
-        <Text>Confiere, por favor, se está tudo certo com o seu pedido</Text>
-        <Box w='450px' h='450px'>
+      <Stack flexGrow='1' p='2em' w='600px'>
+        <VStack>
+          <H1>{name}</H1>
+          <AnimatedText>{l.verify}</AnimatedText>
+        </VStack>
+        <Divider p='10px 0' />
+        <VStack>
           <H2>Info do pedido</H2>
           <OrderList />
-          <InfoAddress />
-        </Box>
+        </VStack>
+        <Divider p='10px 0' />
+        <InfoAddress />
       </Stack>
       <Container
         boxShadow='esc-shadow-lg-top'
@@ -39,4 +47,4 @@ const Confirmation = () => {
   )
 }
 
-export default Confirmation
+export default ConfirmationPage

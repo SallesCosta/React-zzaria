@@ -1,4 +1,4 @@
-import { Box, Button, Stack, VStack } from '@chakra-ui/react'
+import { Button, Divider, VStack } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 import { Container, H1, H2, AnimatedText } from '@/ui'
@@ -8,7 +8,7 @@ import { OrderList } from './components/orderList'
 import { InfoAddress } from './components/infoAddress'
 import langSource from '@/lang/langSource.json'
 
-const Success = () => {
+const SuccessPage = () => {
   const { user } = useAuth()
   const { language } = useLang()
 
@@ -18,13 +18,17 @@ const Success = () => {
   return (
     <>
       <VStack flexGrow={1}>
-        <H1>Pronto {name}</H1>
-        <AnimatedText>{l.pizzaWillArrive}</AnimatedText>
-        <Stack w='450px' h='450px'>
+        <VStack>
+          <H1>Ok {name}</H1>
+          <AnimatedText>{l.pizzaWillArrive}</AnimatedText>
+        </VStack>
+        <Divider p='10px 0' />
+        <VStack>
           <H2>Info do pedido</H2>
           <OrderList />
-          <InfoAddress />
-        </Stack>
+        </VStack>
+        <Divider p='10px 0' />
+        <InfoAddress />
       </VStack>
       <Container
         boxShadow='esc-shadow-lg-top'
@@ -42,4 +46,4 @@ const Success = () => {
   )
 }
 
-export default Success
+export default SuccessPage

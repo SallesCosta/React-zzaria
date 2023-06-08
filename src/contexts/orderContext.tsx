@@ -69,6 +69,7 @@ type ContextValue = {
   removePizza: (id: string) => void;
   handleAddress: (e: FormEvent<HTMLFormElement>) => void;
   handleChangePhone: (e: ChangeEvent<HTMLInputElement>) => void;
+  disableConfirmDataButton: boolean;
   order: {
     pizzas: PizzaPropsId[];
     address: AddressProps;
@@ -158,6 +159,8 @@ export const OrderProvider = ({ children }: ContextProps): JSX.Element => {
     setPhone(e.target.value)
   }
 
+  const disableConfirmDataButton = address === AddressInitialState
+
   return (
     <OrderContext.Provider
       value={{
@@ -168,6 +171,7 @@ export const OrderProvider = ({ children }: ContextProps): JSX.Element => {
         handleChangePhone,
         handleAddress,
         phone,
+        disableConfirmDataButton,
       }}
     >
       {children}

@@ -18,8 +18,8 @@ import { ChoosePizzaQuantity } from './pages/choosePizzaQuantity'
 const MainPage = lazy(() => import('@/pages/mainPage'))
 const LoginPage = lazy(() => import('@/pages/loginPage'))
 const ChoosePizzaFlavours = lazy(() => import('@/pages/choosePizzaFlavours'))
-const Confirmation = lazy(() => import('@/pages/confirmation'))
-const Success = lazy(() => import('@/pages/successPage'))
+const ConfirmationPage = lazy(() => import('@/pages/confirmationPage'))
+const SuccessPage = lazy(() => import('@/pages/successPage'))
 
 const CheckoutPage = lazy(() => import('@/pages/checkoutPage') as Promise<{ default: ComponentType<{}> }>)
 const ChoosePizzaSize = lazy(() => import('@/pages/choosePizzaSize') as Promise<{ default: ComponentType<{}> }>)
@@ -42,8 +42,8 @@ export function App () {
                 path={CHOOSE_PIZZA_QUANTITY}
               />
               <Route element={<CheckoutPage />} path={CHECKOUT} />
-              <Route element={<Confirmation />} path={CONFIRMATION} />
-              <Route element={<Success />} path={SUCCESS} />
+              <Route element={<ConfirmationPage />} path={CONFIRMATION} />
+              <Route element={<SuccessPage />} path={SUCCESS} />
             </Route>
           </Route>
           <Route element={<LoginPage />} path={LOGIN} />

@@ -29,7 +29,6 @@ export const getFromDb = async (coll: string) => {
 }
 
 export const saveData = async (coll: string, data: DataProps) => {
-  console.log('aqui: ', data)
   try {
     await addDoc(collection(db, coll), data)
   } catch (err: unknown) {

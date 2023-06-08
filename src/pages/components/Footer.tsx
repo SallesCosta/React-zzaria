@@ -5,7 +5,7 @@ import { OrderList } from './orderList'
 import { Container, AnimatedText, Bold, H4 } from '@/ui'
 
 import { PizzaSize } from '@/contexts/orderContext'
-import { useLang } from '@/contexts'
+import { useLang, useOrder } from '@/contexts'
 import langSource from '@/lang/langSource.json'
 import { CONFIRMATION, singleOrPlural, WithRouter } from '@/helpers'
 import { InfoAddress } from '@/pages/components/infoAddress'
@@ -32,7 +32,7 @@ type buttonsProps = {
   };
 };
 
-const Footer = (buttons: buttonsProps) => {
+const Footer = ({ buttons }: buttonsProps) => {
   const { language } = useLang()
   const location = useLocation()
   const navigate = useNavigate()
@@ -44,6 +44,7 @@ const Footer = (buttons: buttonsProps) => {
   const backPage = () => navigate(-1)
 
   const l = langSource[language]
+
   return (
     <Container
       as='footer'
@@ -93,14 +94,11 @@ const Footer = (buttons: buttonsProps) => {
         </Box>
       </VStack>
       <Box>
-        <Button onClick={backPage} {...buttons.buttons.back} />
-        <Button {...buttons.buttons.action}>
-          <Link
-            to={buttons.buttons.action.to}
-            state={buttons.buttons.action.state}
-          >
-            {buttons.buttons.action.children}
-          </Link>
+        <Button onClick={backPage} {...buttons.back} />
+        <Button {...buttons.action} isDisabled={buttons.action.isDisabled}>
+          {buttons.action.isDisabled
+            ? <span>{buttons.action.children}</span>
+            : <Link to={buttons.action.to} state={buttons.action.state}>{buttons.action.children}</Link>}
         </Button>
       </Box>
     </Container>
@@ -112,6 +110,8 @@ export default WithRouter(Footer)
 export const CheckoutFooter = () => {
   const { language } = useLang()
   const l = langSource[language]
+
+  const { disableConfirmDataButton } = useOrder()
   return (
     <Container
       as='footer'
@@ -125,9 +125,11 @@ export const CheckoutFooter = () => {
         justifyContent='space-between'
       >
         <InfoAddress />
-        <Button variant='primary'>
+        <Button variant='primary' isDisabled={disableConfirmDataButton}>
           <AnimatedText>
-            <Link to={CONFIRMATION}>{l.confirmData}</Link>
+            {disableConfirmDataButton
+              ? <span>{l.confirmData}</span>
+              : <Link to={CONFIRMATION}>{l.confirmData}</Link>}
           </AnimatedText>
         </Button>
       </HStack>
