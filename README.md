@@ -1,118 +1,105 @@
-<h1 align="center">Boilerplate React.js + TypeScript + Vite 👋</h1>
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.0.0-blue.svg?cacheSeconds=2592000" />
-  <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
-  <a href="https://twitter.com/fdaciuk" target="_blank">
-    <img alt="Twitter: fdaciuk" src="https://img.shields.io/twitter/follow/fdaciuk.svg?style=social" />
-  </a>
-</p>
+# Pizza Ordering Page
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+This is a web application for ordering pizzas. The page is available in multiple languages including English, Spanish, French, Italian, and Portuguese.
 
-> Boilerplate to create React.js apps with Vite
+## Technologies Used
 
-## Which techs this boilerplate have in it?
+- Vite
+- React
+- TypeScript
+- Firebase
+- Chakra UI
+- Jest
+- React Testing Library
 
-This boilerplate is ready to be used by devs who want to start a new project using React.js, TypeScript and Jest with Vite.
+## Features
 
-## Main configurations
+- **Pizza Ordering**: Users can browse through a menu of pizzas and place orders with customization options.
+- **Multi-Language Support**: The page is available in English, Spanish, French, Italian, and Portuguese, allowing users to select their preferred language.
+- **Authentication**: Users can create accounts and log in to track their orders and access personalized features.
+- **Real-Time Updates**: Users can receive real-time updates on the status of their orders.
+- **Responsive Design**: The application is designed to provide an optimal user experience on both desktop and mobile devices.
+- **Testing**: The codebase is thoroughly tested using Jest and React Testing Library to ensure reliability and maintainability.
 
-- React.js 18+ with TypeScript;
-  - You can import "svgs" with `import { ReactComponent as MyIcon } from './icon-path.svg'`;
-  - You can import any other media (images, videos, etc) that is located inside `src` directory;
-  - You can use absolute imports, using `@` as `src` directory;
-- Eslint:
-  - [Standard](https://standardjs.com/) with some modifications;
-  - React Hooks and other React configurations with [eslint-config-react-app](https://www.npmjs.com/package/eslint-config-react-app) (same used in Create React App);
-- Automatic lint and type-checking with Husky before every commit.
+## Getting Started
 
-## Usage
+To run the application locally, follow these steps:
 
-Install the dependencies:
+1. Clone the repository: `git clone <repository-url>`
+2. Install the dependencies: `npm install`
+3. Set up Firebase:
+   - Create a Firebase project and enable the necessary authentication and real-time database features.
+   - Obtain the Firebase configuration object and update the relevant files with your Firebase credentials.
+4. Start the development server: `npm run dev`
+5. Open your browser and visit `http://localhost:3000` to view the application.
 
-```sh
-yarn install
+## Folder Structure
+
+The project structure is organized as follows:
+
+```
+├── public
+│   └── index.html
+├── src
+│   ├── components
+│   │   ├── Header.tsx
+│   │   ├── PizzaMenu.tsx
+│   │   └── ...
+│   ├── pages
+│   │   ├── Home.tsx
+│   │   ├── Order.tsx
+│   │   └── ...
+│   ├── services
+│   │   ├── auth.ts
+│   │   ├── database.ts
+│   │   └── ...
+│   ├── styles
+│   │   ├── globals.css
+│   │   ├── theme.ts
+│   │   └── ...
+│   ├── App.tsx
+│   ├── index.tsx
+│   └── ...
+├── tests
+│   ├── components
+│   │   ├── Header.test.tsx
+│   │   ├── PizzaMenu.test.tsx
+│   │   └── ...
+│   ├── pages
+│   │   ├── Home.test.tsx
+│   │   ├── Order.test.tsx
+│   │   └── ...
+│   └── ...
+├── .gitignore
+├── README.md
+├── package.json
+├── tsconfig.json
+└── ...
 ```
 
-Run dev server:
+## Testing
 
-```sh
-yarn dev
+The project includes comprehensive tests to ensure the quality and stability of the application. To run the tests, use the following command:
+
+```bash
+npm run test
 ```
 
-You can run type-checking in watch mode in another terminal, if you may:
+## Deployment
 
-```sh
-yarn type-check --watch
-```
+To deploy the application to a live server, follow these steps:
 
-## Run tests
+1. Build the project: `npm run build`
+2. Upload the contents of the `dist` directory to your hosting provider.
 
-```sh
-yarn test
-```
+## Contributions
 
-## Production version
+Contributions to this project are welcome. If you encounter any issues or have suggestions for improvement, please open an issue or submit a pull request.
 
-To generate the production version, you can run:
+## License
 
-```sh
-yarn build
-```
+This project is licensed under the [MIT License](LICENSE).
 
-All files you have to deploy will be located at the `dist` directory.
+---
 
-### Run production version locally
-
-To check if everything will be ok in production before the deployment, you can run this command after `yarn build`:
-
-```sh
-yarn preview
-```
-
-## Author
-
-👤 **Fernando Daciuk**
-
-* Website: https://daciuk.dev
-* Twitter: [@fdaciuk](https://twitter.com/fdaciuk)
-* Github: [@fdaciuk](https://github.com/fdaciuk)
-* LinkedIn: [@fdaciuk](https://linkedin.com/in/fdaciuk)
-* Instagram : [@fdaciuk](https://instagram.com/fdaciuk)
-
-## 🤝 Contributing
-
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/fdaciuk/boilerplate-vite-react/issues). 
-
-## ✨ Contributors
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/fdaciuk"><img src="https://avatars.githubusercontent.com/u/487669?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Fernando Daciuk</b></sub></a><br /><a href="https://github.com/fdaciuk/boilerplate-vite-react/commits?author=fdaciuk" title="Code">💻</a> <a href="https://github.com/fdaciuk/boilerplate-vite-react/commits?author=fdaciuk" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/gabepinheiro"><img src="https://avatars.githubusercontent.com/u/45916330?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gabriel Pinheiro</b></sub></a><br /><a href="https://github.com/fdaciuk/boilerplate-vite-react/commits?author=gabepinheiro" title="Code">💻</a></td>
-    <td align="center"><a href="http://newcapital.in@gmail.com"><img src="https://avatars.githubusercontent.com/u/81476236?v=4?s=100" width="100px;" alt=""/><br /><sub><b>NewCapital.in</b></sub></a><br /><a href="https://github.com/fdaciuk/boilerplate-vite-react/commits?author=SallesCosta" title="Code">💻</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+Thank you for choosing our Pizza Ordering Page! We hope you enjoy the application. If you have any questions, feel free to contact us.
