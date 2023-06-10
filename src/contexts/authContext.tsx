@@ -1,7 +1,6 @@
 import {
   createContext,
   Dispatch,
-  KeyboardEventHandler,
   ReactNode,
   SetStateAction,
   useCallback,
@@ -11,13 +10,9 @@ import {
 } from 'react'
 
 import {
-  GithubAuthProvider,
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  signInWithRedirect,
-  GoogleAuthProvider,
 } from 'firebase/auth'
 
 import { auth } from '@/services/firebase'
@@ -30,17 +25,12 @@ type ContextProps = {
 
 type ContextValue = {
   pressEnter: any;
-  setRegisterEmail: Dispatch<SetStateAction<string>>;
-  setRegisterPw: Dispatch<SetStateAction<string>>;
   setLoginEmail: Dispatch<SetStateAction<string>>;
   setLoginPwd: Dispatch<SetStateAction<string>>;
   setIsUserLoggedIn: Dispatch<SetStateAction<boolean>>;
   user: any;
   loginWithEmailAndPassword: () => void;
-  // register: () => void;
   logout: () => void;
-  loginWithGitHub: () => void;
-  loginWithGoogle: () => void;
   loginPwd: string;
   loginEmail: string;
   isUserLoggedIn: boolean;
@@ -49,13 +39,11 @@ type ContextValue = {
 const AuthContext = createContext<ContextValue | null>(null)
 
 export function AuthProvider ({ children }: ContextProps): JSX.Element {
-  const [registerEmail, setRegisterEmail] = useState('')
-  const [registerPw, setRegisterPw] = useState('')
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
   const [user, setUser] = useState<any>(null)
-  const [loginPwd, setLoginPwd] = useState<string>('teste123')
+  const [loginPwd, setLoginPwd] = useState<string>('test123')
   const [loginEmail, setLoginEmail] = useState<string>(
-    'newcapital.in@gmail.com',
+    'test@test.com',
   )
 
   const navigate = useNavigate()
@@ -66,21 +54,6 @@ export function AuthProvider ({ children }: ContextProps): JSX.Element {
       setIsUserLoggedIn(true)
     })
   }, [])
-
-  // const register = async () => {
-  //   try {
-  //     const user = await createUserWithEmailAndPassword(
-  //       auth,
-  //       registerEmail,
-  //       registerPw,
-  //     )
-  //     console.log(user)
-  //     window.location.pathname = '/loginform'
-  //     // navigate('/loginform')
-  //   } catch (error: any) {
-  //     console.log(error.message)
-  //   }
-  // }
 
   const loginWithEmailAndPassword = useCallback(async () => {
     try {
@@ -94,24 +67,6 @@ export function AuthProvider ({ children }: ContextProps): JSX.Element {
     }
   }, [loginPwd, loginEmail, navigate])
 
-  const loginWithGitHub = useCallback(async () => {
-    try {
-      const provider = new GithubAuthProvider()
-      await signInWithRedirect(auth, provider)
-    } catch (error: any) {
-      console.log('loginWithGitHub: ', error.message)
-    }
-  }, [])
-
-  const loginWithGoogle = useCallback(async () => {
-    try {
-      const provider = new GoogleAuthProvider()
-      signInWithRedirect(auth, provider)
-    } catch (error: any) {
-      console.log(error.message)
-    }
-  }, [])
-
   const logout = useCallback(async () => {
     await signOut(auth)
     setIsUserLoggedIn(false)
@@ -122,22 +77,17 @@ export function AuthProvider ({ children }: ContextProps): JSX.Element {
     const ENTER = 'Enter'
 
     if (e.key === ENTER) {
-      // await login({loginEmail, loginPw})
+      loginWithEmailAndPassword()
     }
   }
   return (
     <AuthContext.Provider
       value={{
-        setRegisterEmail,
-        setRegisterPw,
         user,
         loginWithEmailAndPassword,
-        // register,
         logout,
-        loginWithGitHub,
         isUserLoggedIn,
         setIsUserLoggedIn,
-        loginWithGoogle,
         setLoginPwd,
         loginPwd,
         setLoginEmail,

@@ -19,8 +19,6 @@ const LoginPage = () => {
 
   const {
     loginWithEmailAndPassword,
-    loginWithGitHub,
-    loginWithGoogle,
     setLoginPwd,
     loginPwd,
     setLoginEmail,
@@ -30,10 +28,6 @@ const LoginPage = () => {
   const { language } = useLang()
 
   const handleloginWithEmailAndPassword = () => loginWithEmailAndPassword()
-
-  const handleGitHubSubmit = () => loginWithGitHub()
-
-  const handleLoginWithGoogle = () => loginWithGoogle()
 
   const l = langSource[language]
   return (
@@ -59,6 +53,8 @@ const LoginPage = () => {
               placeholder='E-mail'
               name='email'
               onChange={(e) => setLoginEmail(e.target.value)}
+              borderRadius={0}
+              focusBorderColor='red.500'
             />
           </FormControl>
           <FormControl>
@@ -71,7 +67,9 @@ const LoginPage = () => {
               placeholder='Password'
               name='password'
               type={showPwd ? 'text' : 'password'}
+              borderRadius={0}
               onChange={(e) => setLoginPwd(e.target.value)}
+              focusBorderColor='red.500'
             />
           </FormControl>
           <HStack justifyContent='right'>
@@ -90,10 +88,6 @@ const LoginPage = () => {
           >
             <AnimatedText>{l.send}</AnimatedText>
           </Button>
-          <HStack justifyContent='space-between'>
-            <Button onClick={handleGitHubSubmit}>Login with GitHub</Button>
-            <Button onClick={handleLoginWithGoogle}>Login with Google</Button>
-          </HStack>
         </Stack>
         <HStack />
       </Container>
