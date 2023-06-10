@@ -26,11 +26,11 @@ This is a web application for ordering pizzas. The page is available in multiple
 To run the application locally, follow these steps:
 
 1. Clone the repository: `git clone <repository-url>`
-2. Install the dependencies: `npm install`
+2. Install the dependencies: `yarn`
 3. Set up Firebase:
    - Create a Firebase project and enable the necessary authentication and real-time database features.
    - Obtain the Firebase configuration object and update the relevant files with your Firebase credentials.
-4. Start the development server: `npm run dev`
+4. Start the development server: `yarn dev`
 5. Open your browser and visit `http://localhost:3000` to view the application.
 
 ## Folder Structure
@@ -41,35 +41,27 @@ The project structure is organized as follows:
 ├── public
 │   └── index.html
 ├── src
-│   ├── components
-│   │   ├── Header.tsx
-│   │   ├── PizzaMenu.tsx
+│   ├── contexts
+│   │   ├── authContext.tsx
+│   │   ├── langContext.tsx
+│   │   └── orderContext.tsx
+│   ├── helpers
+│   │   ├── mask.ts
+│   │   ├── providers.tx
+│   │   ├── routes.tx
 │   │   └── ...
+│   ├── lang
+│   │   ├── langSource.json
 │   ├── pages
-│   │   ├── Home.tsx
-│   │   ├── Order.tsx
+│   │   ├── checkoutPage.tsx
+│   │   ├── choosePizzaFlavours.tsx
+│   │   ├── loginPage.tsx
 │   │   └── ...
-│   ├── services
-│   │   ├── auth.ts
-│   │   ├── database.ts
-│   │   └── ...
-│   ├── styles
-│   │   ├── globals.css
-│   │   ├── theme.ts
-│   │   └── ...
-│   ├── App.tsx
-│   ├── index.tsx
-│   └── ...
-├── tests
-│   ├── components
-│   │   ├── Header.test.tsx
-│   │   ├── PizzaMenu.test.tsx
-│   │   └── ...
-│   ├── pages
-│   │   ├── Home.test.tsx
-│   │   ├── Order.test.tsx
-│   │   └── ...
-│   └── ...
+│   │   ├── components
+│   |   │   ├── footer.tsx
+│   │   |   ├── formAdress.tsx
+│   │   |   ├── orderList.tsx
+│   |   |   └── ...
 ├── .gitignore
 ├── README.md
 ├── package.json
@@ -82,14 +74,14 @@ The project structure is organized as follows:
 The project includes comprehensive tests to ensure the quality and stability of the application. To run the tests, use the following command:
 
 ```bash
-npm run test
+yarn test
 ```
 
 ## Deployment
 
 To deploy the application to a live server, follow these steps:
 
-1. Build the project: `npm run build`
+1. Build the project: `yarn build`
 2. Upload the contents of the `dist` directory to your hosting provider.
 
 ## Contributions
