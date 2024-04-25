@@ -33,7 +33,6 @@ const ChoosePizzaFlavours = () => {
   const { language } = useLang()
 
   const location = useLocation()
-
   const l = langSource[language]
 
   const PizzaFlavours = data
@@ -92,16 +91,17 @@ const ChoosePizzaFlavours = () => {
           {isFetching && <div>Loading...</div>}
           {PizzaFlavours &&
             PizzaFlavours.map((pizza: EachFlavourProps) => (
-              <GridItem key={pizza.id}>
+              <GridItem
+                key={pizza.id}
+              >
                 <label htmlFor={pizza.name}>
                   {checkboxes && (
                     <VStack
+                      borderRadius='lg'
                       bg='esc-cardBackground'
                       cursor='pointer'
-                      borderRadius='lg'
-                      w='100%'
-                      border={checkboxes[pizza.id] ? '2px' : '1px'}
-                      borderColor='btn-active-border'
+                      border={checkboxes[pizza.id] ? '2px' : ''}
+                      borderColor={checkboxes[pizza.id] ? '#ffcc00' : ''}
                       boxShadow={
                         checkboxes[pizza.id] ? 'esc-shadow-lg-bottom' : 'base'
                       }
@@ -111,7 +111,7 @@ const ChoosePizzaFlavours = () => {
                           onChange={handleChangeCheckbox(pizza.id)}
                           isChecked={!!checkboxes[pizza.id]}
                           id={pizza.name}
-                          size='lg'
+                        // size='lg'
                         />
                       </VisuallyHidden>
                       <Image
@@ -121,7 +121,7 @@ const ChoosePizzaFlavours = () => {
                         alt={`foto pizza de ${pizza.name}`}
                       />
                       <Text>{pizza.name}</Text>
-                      <Text>{toMoney(pizza.value[0])}</Text>
+                      <Text>{toMoney(pizza.value[0], language)}</Text>
                     </VStack>
                   )}
                 </label>
@@ -133,7 +133,7 @@ const ChoosePizzaFlavours = () => {
         buttons={{
           back: {
             children: `${l.changeSize}`,
-            variant: 'solid',
+            variant: 'secondary',
           },
           action: {
             isDisabled: checkboxesChecked === 0,

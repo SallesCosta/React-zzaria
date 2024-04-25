@@ -46,7 +46,3 @@ root.render(
     </Providers>
   </StrictMode>,
 )
-
-// <ErrorBoundary onError={logError} fallbackRender={fallbackRender}>
-//
-// </ErrorBoundary>

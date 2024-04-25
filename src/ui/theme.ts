@@ -1,16 +1,44 @@
 import { extendTheme } from '@chakra-ui/react'
 
+// ca = changeAlpha
+function ca (rgbaString: string, newAlpha: number): string {
+  const rgbaArray = rgbaString.match(/\d+/g)
+
+  if (rgbaArray && rgbaArray.length === 4) {
+    const [r, g, b, _] = rgbaArray
+    return `rgba(${r}, ${g}, ${b}, ${newAlpha})`
+  } else {
+    return 'black'
+  }
+}
+
+const alphaHover = 0.7
+const primaryLight = 'rgba(255, 136, 0, 1)'
+const primaryDark = 'rgba(255, 136, 0, 1)'
+const secondaryLight = 'rgba(255, 204, 0, 1)'
+const secondaryDark = 'rgba(255, 204, 0, 1)'
+
 const tokens = {
   colors: {
     light: {
+      'btn-text1': '#333',
+      'btn-text2': '#fff',
+      'btn-text3': '#0969da',
+      'btn-primary': primaryLight,
+      'btn-primary-hover': ca(primaryLight, 0.7),
+      'btn-secondary': secondaryLight,
+      'btn-secondary-hover': ca(secondaryLight, 0.5),
+      'bg-gray': 'rgba(0, 0, 0, 0.1)',
+      'esc-shadow-a': 'rgba(17, 17, 26, 0.1) 0px 4px 16px',
+      'esc-shadow-b': 'rgba(17, 17, 26, 0.05) 0px 8px 32px',
+      'esc-shadow-c': 'rgba(17, 17, 26, 0.05) 0px 3px 5px',
+      'esc-shadow-d': 'rgba(17, 17, 26, 0.1) 0px -4px 16px',
+      'esc-shadow-e': 'rgba(17, 17, 26, 0.1) 0px -8px 32px',
+      'esc-cardBackground': '#fff',
       'esc-bg': '#f5f5f5',
       'esc-border': '#ddd',
-      'esc-cardBackground': '#fff',
-      'esc-textPrimary': '#333',
+      'esc-text': '#333',
       'esc-textSecondary': '#777',
-      'esc-textHeading': '#333',
-      'esc-textBold': '#333',
-      'esc-shadowBox1': 'rgba(0, 0, 0, 0.1)',
       'esc-shadowBox2': 'rgba(0, 0, 0, 0.2)',
       'esc-buttonsPrimary': '#ff8800',
       'esc-buttonsSecondary': '#ffcc00',
@@ -22,71 +50,85 @@ const tokens = {
       'btn-bg': '#f6f8fa',
       'btn-hover-bg': '#f3f4f6',
       'btn-active-bg': 'hsla (220,14%, 93%, 1)',
-      'btn-border': 'rgba(27, 31, 36, 0.15)',
       'btn-hover-border': 'rgba(27, 31, 36,0.15)',
-      'btn-active-border': 'rgba(27, 31, 36, 0.15)',
-      'btn-primary-bg': '#2da44e',
-      'btn-primary-hover-bg': '#2c974b',
       'btn-primary-selected-bg': 'hsla (137,55%, 36%, 1)',
-      'btn-primary-border': 'rgba(27, 31, 36, 0.15)',
-      'btn-primary-hover-border': 'rgba(27,31,36,0.15)',
       'btn-primary-active-border': 'rgba(27,31,36,0.15)',
       'btn-shadow': '0 1px 0 rgba(27,31,36,0.04)',
       'btn-inset-shadow': 'inset 0 1px 0 rgba(255, 255, 255, 0.25)',
       'btn-primary-shadow': '0 1px rgba(27, 31, 36, 0.1)',
       'btn-primary-inset-shadow': 'inset 0 1px rgba(255,255,255, 0)',
-      'esc-shadow-a': 'rgba(17, 17, 26, 0.1) 0px 4px 16px',
-      'esc-shadow-b': 'rgba(17, 17, 26, 0.05) 0px 8px 32px',
-      'esc-shadow-c': 'rgba(17, 17, 26, 0.05) 0px 3px 5px',
-
-      'esc-shadow-d': 'rgba(17, 17, 26, 0.1) 0px -4px 16px',
-      'esc-shadow-e': 'rgba(17, 17, 26, 0.1) 0px -8px 32px',
     },
     dark: {
+      'btn-text1': '#333',
+      'btn-text2': '#j2j2j2',
+      'btn-text3': '#l6l6l6',
+
+      'btn-primary': primaryDark,
+      'btn-primary-hover': ca(primaryDark, alphaHover),
+      'btn-secondary': secondaryDark,
+      'btn-secondary-hover': ca(secondaryDark, alphaHover),
+      'bg-gray': 'rgba(0, 0, 0, 0.2)',
+      'esc-shadow-a': 'rgba(240, 255, 244, 0.1) 0px 4px 16px',
+      'esc-shadow-b': 'rgba(240, 255, 244, 0.05) 0px 8px 32px',
+      'esc-shadow-c': 'rgba(240, 255, 244, 0.05) 0px 3px 5px',
+      'esc-shadow-d': 'rgba(240, 255, 244, 0.05) 0px -4px 16px',
+      'esc-shadow-e': 'rgba(240, 255, 244, 0.05) 0px -8px 32px',
+      'esc-cardBackground': '#222',
       'esc-bg': '#333',
       'esc-border': '#444',
-      'esc-cardBackground': '#222',
-      'esc-textPrimary': '#fff',
+      'esc-text': '#fff',
       'esc-textSecondary': '#999',
-      'esc-textHeading': '#fff',
-      'esc-textBold': '#fff',
-      'esc-shadowBox1': 'rgba(0, 0, 0, 0.2)',
       'esc-shadowBox2': 'rgba(0, 0, 0, 0.3)',
-      'esc-buttonsPrimary': '#ff8800',
       'esc-buttonsSecondary': '#ffcc00',
-      'bg-default': '#0c1117',
       'bg-default-b': 'rgba(0, 0, 0, 0.15)',
       'fg-default': '#c9d1d9',
       'fg-muted': '#9b949e',
       'fg-accent': '#58a6ff',
+      'bg-default': '#0c1117',
       'btn-bg': '#21262d',
       'btn-hover-bg': '#30363d',
       'btn-active-bg': 'hsla (212,12%, 18%, 1)',
-      'btn-border': 'rgba(240,246, 252, 0.1)',
-      'btn-hover-border': '#8b949e',
-      'btn-active-border': '#6e7681',
-      'btn-primary-bg': '#238636',
-      'btn-primary-hover-bg': '#2ea043',
-      'btn-primary-selected-bg': '#238636',
-      'btn-primary-border': 'rgba(240, 246,252,0.1)',
-      'btn-primary-hover-border': 'rgba(240,246,252,0.1)',
       'btn-primary-active-border': '#6e7681',
-      'btn-shadow': '00 transparent',
       'btn-inset-shadow': '00 transparent',
+      'btn-shadow': '00 transparent',
       'btn-primary-shadow': '00 transparent',
       'btn-primary-inset-shadow': '00 transparent',
-      'esc-shadow-a': 'rgba(240, 255, 244, 0.1) 0px 4px 16px',
-      'esc-shadow-b': 'rgba(240, 255, 244, 0.05) 0px 8px 32px',
-      'esc-shadow-c': 'rgba(240, 255, 244, 0.05) 0px 3px 5px',
-
-      'esc-shadow-d': 'rgba(240, 255, 244, 0.05) 0px -4px 16px',
-      'esc-shadow-e': 'rgba(240, 255, 244, 0.05) 0px -8px 32px',
+      'btn-hover-border': 'rgba(27, 31, 36,0.15)',
     },
   },
 }
 
 const semanticTokens = {
   colors: {
+    'btn-text1': {
+      default: tokens.colors.light['btn-text1'],
+      _dark: tokens.colors.dark['btn-text1'],
+    },
+    'esc-text': {
+      default: tokens.colors.light['esc-text'],
+      _dark: tokens.colors.dark['esc-text'],
+    },
+    'btn-primary': {
+      default: tokens.colors.light['btn-primary'],
+      _dark: tokens.colors.dark['btn-primary'],
+    },
+    'btn-primary-hover': {
+      default: tokens.colors.light['btn-primary-hover'],
+      _dark: tokens.colors.dark['btn-primary-hover'],
+    },
+    'bg-gray': {
+      default: tokens.colors.light['bg-gray'],
+      _dark: tokens.colors.dark['bg-gray'],
+    },
+    'btn-secondary': {
+      default: tokens.colors.light['btn-secondary'],
+      _dark: tokens.colors.dark['btn-secondary'],
+    },
+    'btn-secondary-hover': {
+      default: tokens.colors.light['btn-secondary-hover'],
+      _dark: tokens.colors.dark['btn-secondary-hover'],
+    },
+    // -------------------------------------------------------------
     'esc-bg': {
       default: tokens.colors.light['esc-bg'],
       _dark: tokens.colors.dark['esc-bg'],
@@ -95,35 +137,17 @@ const semanticTokens = {
       default: tokens.colors.light['bg-default-b'],
       _dark: tokens.colors.dark['bg-default-b'],
     },
-    'esc-textPrimary': {
-      default: tokens.colors.light['esc-textPrimary'],
-      _dark: tokens.colors.dark['esc-textPrimary'],
-    },
+
     'esc-textSecondary': {
       default: tokens.colors.light['esc-textSecondary'],
       _dark: tokens.colors.dark['esc-textSecondary'],
     },
-    'esc-textHeading': {
-      default: tokens.colors.light['esc-textHeading'],
-      _dark: tokens.colors.dark['esc-textHeading'],
-    },
-    'esc-textBold': {
-      default: tokens.colors.light['esc-textBold'],
-      _dark: tokens.colors.dark['esc-textBold'],
-    },
-    'esc-shadowBox1': {
-      default: tokens.colors.light['esc-shadowBox1'],
-      _dark: tokens.colors.dark['esc-cardBackground'],
-    },
+
     'esc-shadowBox2': {
       default: tokens.colors.light['esc-shadowBox2'],
       _dark: tokens.colors.dark['esc-shadowBox2'],
     },
 
-    'esc-buttonsPrimary': {
-      default: tokens.colors.light['esc-buttonsPrimary'],
-      _dark: tokens.colors.dark['esc-buttonsPrimary'],
-    },
     'esc-buttonsSecondary': {
       default: tokens.colors.light['esc-buttonsSecondary'],
       _dark: tokens.colors.dark['esc-buttonsSecondary'],
@@ -162,41 +186,9 @@ const semanticTokens = {
       default: tokens.colors.light['btn-active-bg'],
       _dark: tokens.colors.dark['btn-active-bg'],
     },
-    'btn-border': {
-      default: tokens.colors.light['btn-border'],
-      _dark: tokens.colors.dark['btn-border'],
-    },
     'btn-hover-border': {
       default: tokens.colors.light['btn-hover-border'],
       _dark: tokens.colors.dark['btn-hover-border'],
-    },
-    'btn-active-border': {
-      default: tokens.colors.light['btn-active-border'],
-      _dark: tokens.colors.dark['btn-active-border'],
-    },
-    'btn-primary-bg': {
-      default: tokens.colors.light['btn-primary-bg'],
-      _dark: tokens.colors.dark['btn-primary-bg'],
-    },
-    'btn-primary-hover-bg': {
-      default: tokens.colors.light['btn-primary-bg'],
-      _dark: tokens.colors.dark['btn-primary-bg'],
-    },
-    'btn-primary-selected-bg': {
-      default: tokens.colors.light['btn-primary-bg'],
-      _dark: tokens.colors.dark['btn-primary-bg'],
-    },
-    'btn-primary-border': {
-      default: tokens.colors.light['btn-primary-bg'],
-      _dark: tokens.colors.dark['btn-primary-bg'],
-    },
-    'btn-primary-hover-border': {
-      default: tokens.colors.light['btn-primary-bg'],
-      _dark: tokens.colors.dark['btn-primary-bg'],
-    },
-    'btn-primary-active-border': {
-      default: tokens.colors.light['btn-primary-bg'],
-      _dark: tokens.colors.dark['btn-primary-bg'],
     },
   },
 
@@ -228,38 +220,27 @@ const styles = {
       borderRadius: 'none',
     },
     h1: {
-      color: 'esc-textHeading',
+      color: 'esc-text',
     },
     h2: {
-      color: 'esc-textHeading',
+      color: 'esc-text',
     },
     h3: {
-      color: 'esc-textHeading',
+      color: 'esc-text',
     },
     h4: {
-      color: 'esc-textHeading',
+      color: 'esc-text',
     },
     h5: {
-      color: 'esc-textHeading',
+      color: 'esc-text',
     },
     h6: {
-      color: 'esc-textHeading',
+      color: 'esc-text',
     },
   },
 }
 
 const components = {
-  Input: {
-    baseStyle: {
-      borderRadius: 'none',
-
-      focusBorderColor: 'btn-primary-bg',
-      color: 'fg-default',
-      _focus: {
-        ring: '0px',
-      },
-    },
-  },
   Button: {
     baseStyle: {
       borderRadius: 'none',
@@ -269,38 +250,30 @@ const components = {
       },
     },
     variants: {
-      solid: {
-        backgroundColor: 'esc-buttonsSecondary',
-        borderColor: 'esc-buttonsSecondary',
-        color: 'esc-textSecondary',
-        borderWidth: '1px',
-        shadow: 'btn-shadow',
-        borderStyle: 'solid',
-        _hover: {
-          backgroundColor: 'btn-hover-bg',
-          borderColor: 'btn-hover-border',
-        },
-        _active: {
-          backgroundColor: 'btn-active-bg',
-          borderColor: 'btn-active-border',
-        },
-      },
       primary: {
-        // backgroundColor: 'btn-primary-bg',
-        // borderColor: 'btn-primary-border',
-        backgroundColor: 'esc-buttonsPrimary',
-        borderColor: 'esc-buttonsPrimary',
-        borderWidth: '1px',
-        borderStyle: 'solid',
+        backgroundColor: 'btn-primary',
         shadow: 'btn-primary-shadow',
-        color: 'esc-textPrimary',
+        color: 'esc-text',
         _hover: {
-          backgroundColor: 'btn-primary-hover-bg',
+          backgroundColor: 'btn-primary-hover',
           borderColor: 'btn-primary-hover-border',
         },
         _active: {
           backgroundColor: 'btn-primary-selected-bg',
           borderColor: 'btn-primary-active-border',
+        },
+      },
+      secondary: {
+        backgroundColor: 'btn-secondary',
+        shadow: 'btn-secondary-shadow',
+        color: 'btn-text1',
+        _hover: {
+          backgroundColor: 'btn-secondary-hover',
+          borderColor: 'btn-secondary-hover-border',
+        },
+        _active: {
+          backgroundColor: 'btn-secondary-selected-bg',
+          borderColor: 'btn-secondary-active-border',
         },
       },
 

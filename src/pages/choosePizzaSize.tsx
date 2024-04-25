@@ -14,21 +14,18 @@ import { Link } from 'react-router-dom'
 
 import { AnimatedText, H1, H2, PizzaSvgComponent } from '@/ui'
 import { useCollection, CHOOSE_PIZZA_FLAVOURS } from '@/helpers'
+import { PizzaSize } from '@/contexts/orderContext'
 
 const ChoosePizzaSize = () => {
   const { language } = useLang()
 
   const { data, isFetching } = useCollection('pizzasSizes')
 
-  const PizzaSizes = data
-
-  if (PizzaSizes && PizzaSizes.length === 0) {
+  if (data && data.length === 0) {
     return 'empty db'
   }
 
-  const height = 'auto'
-
-  const arr: number[] = [1, 2, 3, 4, 5]
+  const PizzaSizes = (!isFetching && data !== null) && data
 
   const l = langSource[language]
 
@@ -47,7 +44,7 @@ const ChoosePizzaSize = () => {
         p='2em 1em'
       >
         {isFetching &&
-          arr.map((n) => (
+          [1, 2, 3, 4, 5].map((n) => (
             <GridItem key={n}>
               <Skeleton
                 borderWidth='1px'
@@ -57,31 +54,33 @@ const ChoosePizzaSize = () => {
               />
             </GridItem>
           ))}
-        {PizzaSizes?.map((pizza: any) => (
-          <GridItem key={pizza.name}>
-            <Link state={{ size: pizza }} to={CHOOSE_PIZZA_FLAVOURS}>
-              <VStack
-                borderWidth='1px'
-                bg='esc-cardBackground'
-                borderRadius='lg'
-                overflow='hidden'
-                w='100%'
-                h={height}
-                minH='300px'
-                maxH='310px'
-                justifyContent='space-between'
-                p='10px'
-              >
-                <Text>{pizza.name}</Text>
-                <PizzaSvgComponent width={`${pizza.slices * 6}`} />
-                <Box>
-                  <Text>{pizza.size}cm</Text>
-                  <Text>{pizza.slices} fatias - {pizza.flavours} sabores</Text>
-                </Box>
-              </VStack>
-            </Link>
-          </GridItem>
-        ))}
+        {PizzaSizes && PizzaSizes?.map((pizza: PizzaSize) => {
+          return (
+            <GridItem key={pizza.name}>
+              <Link state={{ size: pizza }} to={CHOOSE_PIZZA_FLAVOURS}>
+                <VStack
+                  borderWidth='1px'
+                  bg='esc-cardBackground'
+                  borderRadius='lg'
+                  overflow='hidden'
+                  w='100%'
+                  h='auto'
+                  minH='300px'
+                  maxH='310px'
+                  justifyContent='space-between'
+                  p='10px'
+                >
+                  <Text>{l[pizza.name as keyof typeof l]}</Text>
+                  <PizzaSvgComponent width={`${pizza.slices * 6}`} />
+                  <Box>
+                    <Text>{pizza.size}cm</Text>
+                    <Text>{pizza.slices} {l.slices} - {pizza.flavours} {l.flavors}</Text>
+                  </Box>
+                </VStack>
+              </Link>
+            </GridItem>
+          )
+        })}
       </SimpleGrid>
     </Stack>
   )

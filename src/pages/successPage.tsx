@@ -1,19 +1,18 @@
-import { Button, Divider, VStack } from '@chakra-ui/react'
+
 import { Link } from 'react-router-dom'
 
 import { Container, H1, H2, AnimatedText } from '@/ui'
-import { HOME, nameInEmail } from '@/helpers'
+import { HOME } from '@/helpers'
 import { useAuth, useLang } from '@/contexts'
 import { OrderList } from './components/orderList'
 import { InfoAddress } from './components/infoAddress'
 import langSource from '@/lang/langSource.json'
+import { Button, Divider, VStack } from '@chakra-ui/react'
 
 const SuccessPage = () => {
-  const { user } = useAuth()
   const { language } = useLang()
 
-  const name = nameInEmail(user.user.email)
-
+  const { name } = useAuth()
   const l = langSource[language]
   return (
     <>
@@ -24,7 +23,7 @@ const SuccessPage = () => {
         </VStack>
         <Divider p='10px 0' />
         <VStack>
-          <H2>Info do pedido</H2>
+          <H2>{l.commandInfo}</H2>
           <OrderList />
         </VStack>
         <Divider p='10px 0' />

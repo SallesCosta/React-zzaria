@@ -1,7 +1,7 @@
 import { InfoAddress } from './components/infoAddress'
 import { VStack, Button, Stack, Divider } from '@chakra-ui/react'
 import { AnimatedText, H1, H2, Container } from '@/ui'
-import { nameInEmail, SUCCESS } from '@/helpers'
+import { SUCCESS } from '@/helpers'
 import { useAuth, useLang } from '@/contexts'
 import { OrderList } from './components/orderList'
 import { Link } from 'react-router-dom'
@@ -9,10 +9,9 @@ import { useOrder } from '@/contexts/orderContext'
 import langSource from '@/lang/langSource.json'
 
 const ConfirmationPage = () => {
-  const { user } = useAuth()
   const { sendOrder } = useOrder()
-  const name = nameInEmail(user.user.email)
   const { language } = useLang()
+  const { name } = useAuth()
 
   const l = langSource[language]
 
@@ -25,7 +24,7 @@ const ConfirmationPage = () => {
         </VStack>
         <Divider p='10px 0' />
         <VStack>
-          <H2>Info do pedido</H2>
+          <H2>{l.commandInfo}</H2>
           <OrderList />
         </VStack>
         <Divider p='10px 0' />
@@ -39,7 +38,7 @@ const ConfirmationPage = () => {
       >
         <Button variant='primary' onClick={sendOrder}>
           <Link to={SUCCESS}>
-            <AnimatedText>Tudo certo!</AnimatedText>
+            <AnimatedText>{l.confirmOrder}</AnimatedText>
           </Link>
         </Button>
       </Container>

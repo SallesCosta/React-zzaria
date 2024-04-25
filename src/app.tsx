@@ -1,4 +1,4 @@
-import { lazy, Suspense, ComponentType } from 'react'
+import React, { lazy, Suspense, ComponentType } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { Progress } from '@chakra-ui/react'
@@ -13,10 +13,10 @@ import {
   CONFIRMATION,
   SUCCESS,
 } from '@/helpers'
-import { ChoosePizzaQuantity } from './pages/choosePizzaQuantity'
 
 const MainPage = lazy(() => import('@/pages/mainPage'))
 const LoginPage = lazy(() => import('@/pages/loginPage'))
+const ChoosePizzaQuantity = lazy(() => import('@/pages/choosePizzaQuantity') as Promise<{ default: ComponentType<{}> }>)
 const ChoosePizzaFlavours = lazy(() => import('@/pages/choosePizzaFlavours'))
 const ConfirmationPage = lazy(() => import('@/pages/confirmationPage'))
 const SuccessPage = lazy(() => import('@/pages/successPage'))
@@ -37,7 +37,6 @@ export function App () {
                 path={CHOOSE_PIZZA_FLAVOURS}
               />
               <Route
-                // @ts-ignore
                 element={<ChoosePizzaQuantity />}
                 path={CHOOSE_PIZZA_QUANTITY}
               />

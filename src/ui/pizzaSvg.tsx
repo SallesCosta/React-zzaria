@@ -21,10 +21,10 @@ export const PizzaSvgComponent: FC<PizzaSvgComponentProps> = ({
           maxW: '180px',
         },
         path: {
-          fill: 'esc-textHeading',
+          fill: 'esc-text',
         },
         line: {
-          stroke: 'esc-textHeading',
+          stroke: 'esc-text',
         },
       }}
       {...props}

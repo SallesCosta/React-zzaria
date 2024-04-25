@@ -21,7 +21,7 @@ export const FormAdress = () => {
           <FormGridItem colSpan={4} animatedText={l.state} name='state' isRequired />
           <FormGridItem colSpan={12} animatedText={l.complement} name='complement' />
         </Grid>
-        <Button type='submit' mt={3} w='100%'>
+        <Button type='submit' mt={3} w='100%' variant='secondary'>
           <AnimatedText>{l.send}</AnimatedText>
         </Button>
       </form>
@@ -30,12 +30,12 @@ export const FormAdress = () => {
         <AnimatedText>{l.phone}</AnimatedText>
       </FormLabel>
       <Input
+        focusBorderColor='#ffcc00'
         value={phoneMask(phone)}
         onChange={handleChangePhone}
         type='text'
         borderRadius={0}
         bg='esc-cardBackground'
-
       />
     </>
   )

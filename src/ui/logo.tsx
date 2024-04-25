@@ -18,10 +18,10 @@ export const Logo = ({ width }: LogoProps) => {
           height: 'auto',
         },
         path: {
-          fill: 'esc-textHeading',
+          fill: 'esc-text',
         },
         line: {
-          stroke: 'esc-textHeading',
+          stroke: 'esc-text',
         },
       }}
     >

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 import { VStack, Progress } from '@chakra-ui/react'
 

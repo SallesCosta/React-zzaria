@@ -6,9 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { useOrder, useLang } from '@/contexts'
 import { HOME } from '@/helpers'
 import { FormAdress } from './components/formAdress'
-import langSource from '@/lang/langSource.json'
 import { AnimatedText } from '@/ui'
-import { InfoAddress } from './components/infoAddress'
+import langSource from '@/lang/langSource.json'
 
 const CheckoutPage = () => {
   const navigate = useNavigate()
@@ -46,8 +45,6 @@ const CheckoutPage = () => {
             <AnimatedText>{l.orderInformation}</AnimatedText>
           </H2>
           <OrderList />
-          {/* <Divider p={2} /> */}
-          {/* <InfoAddress /> */}
         </VStack>
       </HStack>
       <CheckoutFooter />

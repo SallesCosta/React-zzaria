@@ -1,5 +1,3 @@
-import { serverTimestamp } from 'firebase/firestore'
-import { useAuth } from '@/contexts'
 import {
   createContext,
   ReactNode,
@@ -10,72 +8,81 @@ import {
   ChangeEvent,
   useMemo,
 } from 'react'
+import { serverTimestamp } from 'firebase/firestore'
+import { useAuth } from '@/contexts'
 import { duid, cepMask } from '@/helpers'
 import { saveData } from '@/services/firebase'
 
 type AddressProps = Record<
   'number' | 'street' | 'complement' | 'codePostal' | 'city' | 'state',
   string
->;
+>
 
 type ContextProps = {
-  children: ReactNode | ReactNode[];
-};
-
-export type PizzaSize = {
-  id: string;
-  slices: number;
-  name: string;
-  size: number;
-  flavours: number;
-};
-
-export type EachFlavourProps = {
-  id: string;
-  image: string;
-  name: string;
-  value: {
-    [key: number]: number;
-  };
-};
-
-type PizzaFlavourProps = {
-  id: string;
-  name: EachFlavourProps;
+  children: ReactNode | ReactNode[]
 }
 
-type PizzaProps = {
-  size: PizzaSize;
-  flavours: PizzaFlavourProps[];
-  quantity: number;
-};
+export type PizzaSize = {
+  id: string
+  name: string
+  size: number
+  slices: number
+  flavours: number
+}
 
-interface PizzaPropsId extends PizzaProps {
-  id: string;
+export type EachFlavourProps = {
+  id: string
+  image: string
+  name: string
+  value: {
+    [key: number]: number
+  }
+}
+
+type PizzaFlavourProps = {
+  id: string
+  name: EachFlavourProps
+}
+
+export type OrdersProps = {
+    id: string
+    size: PizzaSize
+    flavours: PizzaFlavourProps[]
+    quantity: number
+}[]
+
+type PizzaProps = {
+  size: PizzaSize
+  flavours: PizzaFlavourProps[]
+  quantity: number
+}
+
+export interface PizzaPropsId extends PizzaProps {
+  id: string
 }
 
 export type DataProps = {
-  userId: string;
-  address: AddressProps;
-  phone: string;
-  createdAt: any;
-  pizzas: PizzaProps[];
+  userId: string
+  address: AddressProps
+  phone: string
+  createdAt: any
+  pizzas: PizzaProps[]
 }
 
 type ContextValue = {
-  phone: string;
-  addPizzaToOrder: (pizza: PizzaPropsId) => void;
-  sendOrder: () => void;
-  removePizza: (id: string) => void;
-  handleAddress: (e: FormEvent<HTMLFormElement>) => void;
-  handleChangePhone: (e: ChangeEvent<HTMLInputElement>) => void;
-  disableConfirmDataButton: boolean;
+  phone: string
+  addPizzaToOrder: (pizza: PizzaPropsId) => void
+  sendOrder: () => void
+  removePizza: (id: string) => void
+  handleAddress: (e: FormEvent<HTMLFormElement>) => void
+  handleChangePhone: (e: ChangeEvent<HTMLInputElement>) => void
+  disableConfirmDataButton: boolean
   order: {
-    pizzas: PizzaPropsId[];
-    address: AddressProps;
-    phone: string;
-  };
-};
+    pizzas: PizzaPropsId[]
+    address: AddressProps
+    phone: string
+  }
+}
 
 export const OrderContext = createContext<ContextValue | null>(null)
 const AddressInitialState: AddressProps = {
@@ -95,7 +102,15 @@ export const OrderProvider = ({ children }: ContextProps): JSX.Element => {
   const { user } = useAuth()
   const id = duid()
 
-  const orderToSend = useMemo(() => {
+  const orderToSend: {
+    createdAt: any
+    address: AddressProps
+    pizzas: {flavours: PizzaFlavourProps[]
+      quantity: number
+      size: PizzaSize}[]
+    phone: string
+    userId: string
+  } = useMemo(() => {
     return {
       userId: user?.user?.uid,
       address,

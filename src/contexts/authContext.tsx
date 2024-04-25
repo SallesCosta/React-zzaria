@@ -18,52 +18,62 @@ import {
 import { auth } from '@/services/firebase'
 import { useNavigate } from 'react-router-dom'
 import { HOME, LOGIN } from '@/helpers'
+import { UserProps } from '@/contexts/types'
 
 type ContextProps = {
   children: ReactNode | ReactNode[];
-};
+}
 
 type ContextValue = {
-  pressEnter: any;
-  setLoginEmail: Dispatch<SetStateAction<string>>;
-  setLoginPwd: Dispatch<SetStateAction<string>>;
-  setIsUserLoggedIn: Dispatch<SetStateAction<boolean>>;
-  user: any;
+  isUserLoggedIn: boolean;
+  loginEmail: string
+  loginPwd: string;
   loginWithEmailAndPassword: () => void;
   logout: () => void;
-  loginPwd: string;
-  loginEmail: string;
-  isUserLoggedIn: boolean;
-};
+  name: string;
+  pressEnter: (e: KeyboardEvent)=> void;
+  setInternalLoginEmail: (email: string) => void;
+  setIsUserLoggedIn: Dispatch<SetStateAction<boolean>>;
+  setLoginPwd: Dispatch<SetStateAction<string>>;
+  user: UserProps
+}
 
 const AuthContext = createContext<ContextValue | null>(null)
 
 export function AuthProvider ({ children }: ContextProps): JSX.Element {
+  const [name, setName] = useState<string>('')
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
   const [user, setUser] = useState<any>(null)
-  const [loginPwd, setLoginPwd] = useState<string>('test123')
+  const [loginPwd, setLoginPwd] = useState<string>(
+    'test123',
+  )
   const [loginEmail, setLoginEmail] = useState<string>(
     'test@test.com',
   )
-
   const navigate = useNavigate()
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser)
-      setIsUserLoggedIn(true)
     })
   }, [])
+
+  const setInternalLoginEmail = (email: string) => setLoginEmail(email)
 
   const loginWithEmailAndPassword = useCallback(async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, loginEmail, loginPwd)
       setUser(user)
 
+      if (user.user.email) {
+        const email = user.user.email
+        setName(email?.substring(0, email?.indexOf('@')))
+      }
+
       setIsUserLoggedIn(true)
       navigate(HOME)
     } catch (error: any) {
-      console.log(error.message)
+      console.log('Err: ', error.message)
     }
   }, [loginPwd, loginEmail, navigate])
 
@@ -80,19 +90,21 @@ export function AuthProvider ({ children }: ContextProps): JSX.Element {
       loginWithEmailAndPassword()
     }
   }
+
   return (
     <AuthContext.Provider
       value={{
-        user,
+        isUserLoggedIn,
+        loginEmail,
+        loginPwd,
         loginWithEmailAndPassword,
         logout,
-        isUserLoggedIn,
+        name,
+        pressEnter,
+        setInternalLoginEmail,
         setIsUserLoggedIn,
         setLoginPwd,
-        loginPwd,
-        setLoginEmail,
-        loginEmail,
-        pressEnter,
+        user,
       }}
     >
       {children}

@@ -21,13 +21,13 @@ const LoginPage = () => {
     loginWithEmailAndPassword,
     setLoginPwd,
     loginPwd,
-    setLoginEmail,
+    setInternalLoginEmail,
     loginEmail,
   } = useAuth()
 
   const { language } = useLang()
 
-  const handleloginWithEmailAndPassword = () => loginWithEmailAndPassword()
+  const handleLoginWithEmailAndPassword = () => loginWithEmailAndPassword()
 
   const l = langSource[language]
   return (
@@ -52,9 +52,9 @@ const LoginPage = () => {
               value={loginEmail}
               placeholder='E-mail'
               name='email'
-              onChange={(e) => setLoginEmail(e.target.value)}
+              onChange={(e) => setInternalLoginEmail(e.target.value)}
               borderRadius={0}
-              focusBorderColor='red.500'
+              focusBorderColor='#ffcc00'
             />
           </FormControl>
           <FormControl>
@@ -69,7 +69,7 @@ const LoginPage = () => {
               type={showPwd ? 'text' : 'password'}
               borderRadius={0}
               onChange={(e) => setLoginPwd(e.target.value)}
-              focusBorderColor='red.500'
+              focusBorderColor='#ffcc00'
             />
           </FormControl>
           <HStack justifyContent='right'>
@@ -81,10 +81,10 @@ const LoginPage = () => {
         </Stack>
         <Stack w='90%' spacing={6} maxW='500'>
           <Button
-            onClick={handleloginWithEmailAndPassword}
+            onClick={handleLoginWithEmailAndPassword}
             type='submit'
             w='100%'
-            variant='primary'
+            variant='secondary'
           >
             <AnimatedText>{l.send}</AnimatedText>
           </Button>

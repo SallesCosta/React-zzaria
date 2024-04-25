@@ -9,7 +9,7 @@ import Footer from '@/pages/components/footer'
 import { useOrder, useLang } from '@/contexts'
 import langSource from '@/lang/langSource.json'
 
-export const ChoosePizzaQuantity = () => {
+const ChoosePizzaQuantity = () => {
   const [quantity, setQuantity] = useState(1)
   const { language } = useLang()
   const { addPizzaToOrder } = useOrder()
@@ -57,36 +57,43 @@ export const ChoosePizzaQuantity = () => {
         gap='4'
       >
         <H1>Quantity with this flavours?</H1>
-        <HStack h='100px' w='150px'>
-          <Input
-            bg='bg-default-b'
-            focusBorderColor='btn-primary-bg'
-            w='100px'
-            type='number'
-            autoFocus
-            value={quantity}
-            onChange={handleChange}
-            fontSize='60px'
-            textAlign='center'
-            h='100%'
-          />
-          <VStack h='100%'>
-            <Button h='50%' w='50px' onClick={() => changeQuantity('+')}>
-              +
-            </Button>
+        <VStack>
+          <HStack
+            h='100px'
+            w='200px'
+          >
             <Button
-              h='50%'
+              variant='secondary'
+              h='100%'
               w='50px'
               onClick={() => changeQuantity('-')}
               isDisabled={quantity === 1}
             >
               -
             </Button>
-          </VStack>
-        </HStack>
-        <Button variant='primary' onClick={addPizza}>
-          <AnimatedText>{l.addAnotherPizza}</AnimatedText>
-        </Button>
+            <Input
+              bg='bg-default-b'
+              focusBorderColor='#ffcc00'
+              w='100px'
+              type='number'
+              autoFocus
+              value={quantity}
+              onChange={handleChange}
+              fontSize='60px'
+              textAlign='center'
+              h='100%'
+            />
+            <Button
+              h='100%'
+              w='50px' onClick={() => changeQuantity('+')} variant='secondary'
+            >
+              +
+            </Button>
+          </HStack>
+          <Button variant='primary' onClick={addPizza} w='100%'>
+            <AnimatedText>{l.addAnotherPizza}</AnimatedText>
+          </Button>
+        </VStack>
       </VStack>
       <Footer
         buttons={{
@@ -105,3 +112,4 @@ export const ChoosePizzaQuantity = () => {
     </>
   )
 }
+export default ChoosePizzaQuantity

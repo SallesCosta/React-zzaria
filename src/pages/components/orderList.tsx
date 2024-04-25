@@ -2,11 +2,11 @@ import { Box, List, ListItem, Center } from '@chakra-ui/react'
 import { useLocation } from 'react-router-dom'
 import { SmallCloseIcon } from '@chakra-ui/icons'
 
+import { CHECKOUT, singleOrPlural } from '@/helpers'
 import { useOrder, useLang } from '@/contexts'
 
 import langSource from '@/lang/langSource.json'
 import { Bold } from '@/ui'
-import { singleOrPlural } from '@/helpers'
 
 export const OrderList = () => {
   const location = useLocation()
@@ -16,7 +16,7 @@ export const OrderList = () => {
   const { order, removePizza } = useOrder()
   const eachOrder = order.pizzas
 
-  const isCheckout = location.pathname === '/checkout'
+  const isCheckout = location.pathname === CHECKOUT
 
   const l = langSource[language]
 
@@ -27,16 +27,21 @@ export const OrderList = () => {
           <ListItem
             w='100%'
             key={index}
-            h={isCheckout ? 16 : ''}
             alignItems='center' display='flex' justifyContent='space-between'
-            pl={3}
+            gap={3}
+            borderRadius={6}
+            bg='esc-cardBackground'
+            overflow='hidden'
             _hover={{
-              background: 'esc-cardBackground',
-              border: '1px solid',
-              borderColor: 'red.500',
+              color: '#333',
+              background: 'esc-buttonsSecondary',
             }}
           >
-            <Box>
+            <Box
+              pl={3}
+              pr={isCheckout ? 0 : 3}
+              py={isCheckout ? 1 : 2}
+            >
               <Bold>{p.quantity}</Bold> <Bold>{p.size.name}</Bold> (
               {p.size.flavours} {singleOrPlural(p.size.flavours, `${l.flavor}`, `${l.flavors} `)}
               {' '} and {p.size.slices} slices){' '}
@@ -49,7 +54,7 @@ export const OrderList = () => {
               <Center
                 onClick={() => removePizza(p.id)}
                 cursor='pointer'
-                h={isCheckout ? 16 : ''}
+                h={14}
                 minW={8}
                 _hover={{
                   background: 'red.200',
@@ -57,7 +62,7 @@ export const OrderList = () => {
               >
                 <SmallCloseIcon
                   w={6}
-                  h={6}
+                  // h={6}
                   color='red.500'
                 />
               </Center>

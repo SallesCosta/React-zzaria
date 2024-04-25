@@ -3,7 +3,6 @@ export { Providers } from './providers'
 export { PrivateRoute } from './privateRoute'
 export { singleOrPlural } from './singleOrPlural'
 export { WithRouter } from './withRouter'
-export { nameInEmail, firstLetter } from './nameAndEmail'
 export {
   CHOOSE_PIZZA_QUANTITY,
   CHOOSE_PIZZA_FLAVOURS,

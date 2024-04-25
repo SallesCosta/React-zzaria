@@ -22,13 +22,13 @@ export const FormGridItem: FC<FormGridItemProps> = ({ colSpan, animatedText, nam
         <AnimatedText>{animatedText}</AnimatedText>
       </FormLabel>
       <Input
-        focusBorderColor='red.500'
-        borderRadius={0}
-        bg='esc-cardBackground'
-        name={name}
-        autoFocus={autoFocused}
         type='text'
+        borderRadius={0}
+        name={name}
+        bg='esc-cardBackground'
+        autoFocus={autoFocused}
         isRequired={isRequired}
+        focusBorderColor='#ffcc00'
       />
     </GridItem>
   )

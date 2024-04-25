@@ -37,7 +37,9 @@
     "yourPackage": "Seu Pacote",
     "and": "e",
     "save": "Salvar",
-    "verify": "Confira, por favor, se está tudo certo com o seu pedido"
+    "verify": "Confira, por favor, se está tudo certo com o seu pedido",
+    "commandInfo": "Informações do pedido",
+    "confirmOrder": "Confirmar Pedido"
   },
   "fr": {
     "welcome": "Bienvenue",
@@ -77,9 +79,10 @@
     "yourPackage": "Votre Package",
     "and": "et",
     "save": "Enregistrer",
-    "verify": "Vérifiez, s'il vous plaît, si tout est en ordre avec votre commande"
+    "verify": "Vérifiez, s'il vous plaît, si tout est en ordre avec votre commande",
+    "commandInfo": "Information de la commande",
+    "confirmOrder": "Confirmer la commande"
   },
-
   "it": {
     "welcome": "Benvenuto",
     "send": "Invia",
@@ -118,7 +121,9 @@
     "yourPackage": "Il Tuo Pacchetto",
     "and": "e",
     "save": "Salva",
-    "verify": "Controlla, per favore, se è tutto corretto con il tuo ordine"
+    "verify": "Controlla, per favore, se è tutto corretto con il tuo ordine",
+    "commandInfo": "Informazioni dell'ordine",
+    "confirmOrder": "Confirmare Ordine"
   },
   "es": {
     "welcome": "Bienvenido",
@@ -158,7 +163,9 @@
     "yourPackage": "Tu Paquete",
     "and": "y",
     "save": "Guardar",
-    "verify": "Verifica, por favor, si todo está correcto con tu pedido"
+    "verify": "Verifica, por favor, si todo está correcto con tu pedido",
+    "commandInfo": "Información del pedido",
+    "confirmOrder": "Confirmar Pedido"
   },
   "en": {
     "welcome": "Welcome",
@@ -198,6 +205,8 @@
     "yourPackage": "Your Package",
     "and": "and",
     "save": "Save",
-    "verify":"Please check if everything is correct with your order"
+    "verify": "Please check if everything is correct with your order",
+    "commandInfo": "Order Information",
+    "confirmOrder": "Confirm Order"
   }
 }
