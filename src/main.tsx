@@ -35,7 +35,6 @@ const logError = (error: Error, info: { componentStack: string }) => {
   console.log('info', info.componentStack)
 }
 
-// TODO: use ChakraProvider from providers abstraction.
 root.render(
   <StrictMode>
     <Providers>

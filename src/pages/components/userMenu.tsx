@@ -15,10 +15,9 @@ import langSource from '@/lang/langSource.json'
 import { useLocation } from 'react-router-dom'
 
 export const UserMenu = () => {
-  const location = useLocation()
   const { toggleColorMode } = useColorMode()
   const { logout, name } = useAuth()
-
+  const location = useLocation()
   const { language } = useLang()
 
   const isCheckout = location.pathname === CHECKOUT
@@ -58,14 +57,13 @@ export const UserMenu = () => {
       <MenuList>
         <MenuItem
           icon={<AddIcon />}
-          command='⌘T'
           onClick={() => toggleColorMode()}
         >
           toggle Color-Mode
         </MenuItem>
 
         {!isCheckout &&
-          <MenuItem icon={<ExternalLinkIcon />} command='⌘N' onClick={logout}>
+          <MenuItem icon={<ExternalLinkIcon />} onClick={logout}>
             Logout
           </MenuItem>}
       </MenuList>

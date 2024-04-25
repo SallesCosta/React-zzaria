@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, ComponentType } from 'react'
+import { lazy, Suspense, ComponentType } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { Progress } from '@chakra-ui/react'
@@ -20,34 +20,31 @@ const ChoosePizzaQuantity = lazy(() => import('@/pages/choosePizzaQuantity') as 
 const ChoosePizzaFlavours = lazy(() => import('@/pages/choosePizzaFlavours'))
 const ConfirmationPage = lazy(() => import('@/pages/confirmationPage'))
 const SuccessPage = lazy(() => import('@/pages/successPage'))
-
 const CheckoutPage = lazy(() => import('@/pages/checkoutPage') as Promise<{ default: ComponentType<{}> }>)
 const ChoosePizzaSize = lazy(() => import('@/pages/choosePizzaSize') as Promise<{ default: ComponentType<{}> }>)
 
 export function App () {
   return (
-    <>
-      <Suspense fallback={<Progress size='xs' isIndeterminate />}>
-        <Routes>
-          <Route element={<PrivateRoute />}>
-            <Route element={<MainPage />} path={HOME}>
-              <Route element={<ChoosePizzaSize />} path={HOME} />
-              <Route
-                element={<ChoosePizzaFlavours />}
-                path={CHOOSE_PIZZA_FLAVOURS}
-              />
-              <Route
-                element={<ChoosePizzaQuantity />}
-                path={CHOOSE_PIZZA_QUANTITY}
-              />
-              <Route element={<CheckoutPage />} path={CHECKOUT} />
-              <Route element={<ConfirmationPage />} path={CONFIRMATION} />
-              <Route element={<SuccessPage />} path={SUCCESS} />
-            </Route>
+    <Suspense fallback={<Progress size='xs' isIndeterminate />}>
+      <Routes>
+        <Route element={<PrivateRoute />}>
+          <Route element={<MainPage />} path={HOME}>
+            <Route element={<ChoosePizzaSize />} path={HOME} />
+            <Route
+              element={<ChoosePizzaFlavours />}
+              path={CHOOSE_PIZZA_FLAVOURS}
+            />
+            <Route
+              element={<ChoosePizzaQuantity />}
+              path={CHOOSE_PIZZA_QUANTITY}
+            />
+            <Route element={<CheckoutPage />} path={CHECKOUT} />
+            <Route element={<ConfirmationPage />} path={CONFIRMATION} />
+            <Route element={<SuccessPage />} path={SUCCESS} />
           </Route>
-          <Route element={<LoginPage />} path={LOGIN} />
-        </Routes>
-      </Suspense>
-    </>
+        </Route>
+        <Route element={<LoginPage />} path={LOGIN} />
+      </Routes>
+    </Suspense>
   )
 }
